@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "192415373845",
+    "project_id": "despoky-b9ce2",
+    "storage_bucket": "despoky-b9ce2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:192415373845:android:4f3dcbd8b5e4bcb8264c1c",
+        "android_client_info": {
+          "package_name": "com.example.final_project"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "192415373845-u8oqphkl6tpo6g15gq7i2q8f7aa9jcgh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCGNtnzjNnxMtOzjJzPZltEmtMRrNefju0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "192415373845-u8oqphkl6tpo6g15gq7i2q8f7aa9jcgh.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
