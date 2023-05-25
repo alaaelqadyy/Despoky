@@ -10,7 +10,7 @@ class CustomAppBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    AuthController _auth =AuthController(context);
+    AuthController auth =AuthController(context);
     return AppBar(
       backgroundColor: colorAnimated.background,
       elevation: 0,
@@ -22,7 +22,7 @@ class CustomAppBar extends StatelessWidget {
       actions: [
         IconButton(
           onPressed: () {
-            _auth.signOut();
+            auth.signOut();
           },
           icon: Icon(
             Icons.logout,
