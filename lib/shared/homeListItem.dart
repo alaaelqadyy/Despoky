@@ -16,44 +16,42 @@ class HomeListItem extends StatelessWidget {
       onTap: () => Navigator.of(context, rootNavigator: true)
           .pushNamed(AppRoutes.productDetailesPageRoute, arguments: product),
       child: SizedBox(
-        height: 40.h,
+        height: 30.h,
         child: DecoratedBox(
           decoration: BoxDecoration(),
           child: Column(
             children: [
-              SizedBox(
-                child: Container(
-                  color: Colors.white,
-                  child: Image.asset(
-                    product.image[0],
-                    width: 50.w,
-                    height: 60.w,
-                    fit: BoxFit.fitWidth,
-                  ),
+              Container(
+                color: Colors.white,
+                child: Image.asset(
+                  product.image[0],
+                  width: 35.w,
+                  height: 40.w,
+                  fit: BoxFit.fitWidth,
                 ),
               ),
               SizedBox(
-                height: 1.7.h,
+                height: 1.h,
               ),
               Text(
                 product.name,
                 style: GoogleFonts.tenorSans(
                   textStyle: TextStyle(
                     color: Colors.white,
-                    fontSize: 12.sp,
-                    fontWeight: FontWeight.bold,
+                    fontSize: 13.sp,
+                    // fontWeight: FontWeight.bold,
                   ),
                 ),
               ),
               SizedBox(
-                height: 1.5.h,
+                height: 1.h,
               ),
               Text(
-                " ${product.price}\$",
+                " ${product.price} \$",
                 style: GoogleFonts.tenorSans(
                   textStyle: TextStyle(
                     color: Colors.white,
-                    fontSize: 12.sp,
+                    fontSize: 13.sp,
                   ),
                 ),
               ),

@@ -29,23 +29,25 @@ class _CategoryListItemsState extends State<CategoryListItems> {
       ),
       child: SizedBox(
         child: Card(
-          elevation: 2,
+          elevation: 20,
           color: Color(0xFF171725),
           child: Row(
             children: [
               Container(
-                color: Colors.white70,
+                color: Colors.white,
                 child: Image(
                   image: AssetImage('${widget.product.image[0]}'),
-                  width: 25.w,
-                  height: 35.w,
+                  width: 35.w,
+                  height: 40.w,
                   fit: BoxFit.fitWidth,
                 ),
               ),
               Expanded(
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
+                 //mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
+
+
                   children: [
                     Text(
                       ' ${widget.product.name}',
@@ -54,26 +56,28 @@ class _CategoryListItemsState extends State<CategoryListItems> {
                         TextStyle(color: Colors.white, fontSize: 17.sp),
                       ),
                     ),
-                    SizedBox(height: 1.h),
+
+                    // Text(
+                    //   ' ${widget.product.description}',
+                    //   style: GoogleFonts.tenorSans(
+                    //     textStyle: TextStyle(
+                    //       color: Colors.grey,
+                    //       fontSize: 12.sp,
+                    //     ),
+                    //   ),
+                    //   maxLines: 1,
+                    //   overflow: TextOverflow.ellipsis,
+                    // ),
+                    SizedBox(height: 6.h),
                     Text(
-                      ' ${widget.product.description}',
-                      style: GoogleFonts.tenorSans(
-                        textStyle: TextStyle(
-                          color: Colors.grey,
-                          fontSize: 12.sp,
-                        ),
-                      ),
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                    SizedBox(height: 1.h),
-                    Text(
-                      " ${widget.product.price} \$",
+                      "  ${widget.product.price} \$",
                       style: GoogleFonts.tenorSans(
                         textStyle:
-                        TextStyle(color: Colors.white, fontSize: 12.sp),
+                        TextStyle(color: Colors.white, fontSize: 13.sp),
                       ),
                     ),
+
+                    //SizedBox(height: 3.h,),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -100,11 +104,11 @@ class _CategoryListItemsState extends State<CategoryListItems> {
                             }
                           },
                           child: Text(
-                            isAddedToCart ? "REMOVE FROM CART" : "ADD TO CART",
+                            isAddedToCart ? "- REMOVE FROM CART" : "+ADD TO CART",
                             style: GoogleFonts.tenorSans(
                               textStyle: TextStyle(
                                 color: Colors.white,
-                                fontSize: 8.sp,
+                                fontSize: 12.sp,
                               ),
                             ),
                           ),
@@ -120,7 +124,7 @@ class _CategoryListItemsState extends State<CategoryListItems> {
                                 ? Icons.favorite
                                 : Icons.favorite_border,
                             color: isFavorite ? Colors.red : Colors.white,
-                            size: 3.5.h,
+                            size: 3.h,
                           ),
                         ),
                       ],

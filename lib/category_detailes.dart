@@ -18,6 +18,10 @@ class CategoryDetailsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Color(0xFF171725),
+        elevation: 0,
+      ),
       body: SafeArea(
         child: Container(
           width: double.infinity,
@@ -28,9 +32,9 @@ class CategoryDetailsPage extends StatelessWidget {
               child: Column(
                 children: [
                   Padding(
-                    padding: EdgeInsets.symmetric(vertical: 2.h, horizontal: 3.w),
+                    padding: EdgeInsets.symmetric(vertical: 2.h , horizontal: 1.w),
                     child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
+                      //mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
@@ -51,7 +55,7 @@ class CategoryDetailsPage extends StatelessWidget {
                           itemBuilder: (context, index) {
                             final product = products[index];
                             return Padding(
-                              padding: EdgeInsets.only(left: 7.w, right: 7.w),
+                              padding: EdgeInsets.only(bottom: 2.h),
                               child: CategoryListItems(product: product),
                             );
                           },
