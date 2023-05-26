@@ -15,11 +15,38 @@ class AuthController {
   Future<void> loginUser(String email, String password) async {
     try {
       await _auth.signInWithEmailAndPassword(email: email, password: password);
-      Navigator.of(context);
-      Navigator.of(context, rootNavigator: true)
-          .pushNamed(AppRoutes.bottomNavBarPageRoute);
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: Text('Welcome'),
+          content: Text('Welcome to Despoky.'),
+          actions: <Widget>[
+            TextButton(
+              child: Text('OK'),
+              onPressed: () {
+                Navigator.of(context, rootNavigator: true)
+                    .pushNamed(AppRoutes.bottomNavBarPageRoute);
+              },
+            ),
+          ],
+        ),
+      );
     } catch (error) {
-      throw error;
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: Text('Error'),
+          content: Text(error.toString()),
+          actions: <Widget>[
+            TextButton(
+              child: Text('OK'),
+              onPressed: () {
+                Navigator.pop(context);
+              },
+            ),
+          ],
+        ),
+      );
     }
   }
 
@@ -35,9 +62,23 @@ class AuthController {
         'firstName': firstName,
         'lastName': lastName,
         'email': email,
-        'phoneNumber': phoneNumber,
+        'phoneNumber': '0' + phoneNumber,
       });
-      Navigator.of(context).pushNamed(AppRoutes.loginPageRoute);
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: Text('Success'),
+          content: Text('Welcome to Despoky.'),
+          actions: <Widget>[
+            TextButton(
+              child: Text('SIGN IN'),
+              onPressed: () {
+                Navigator.of(context).pushNamed(AppRoutes.loginPageRoute);
+              },
+            ),
+          ],
+        ),
+      );
     } catch (error) {
       String errorMessage = 'An error occurred while registering the user.';
 
@@ -95,7 +136,6 @@ class AuthController {
         await _firestore.collection('users').doc(userId).update({
           'fullName': fullName,
           'email': email,
-          'phoneNumber': phoneNumber,
         });
 
         // Update the user's display name and email
@@ -117,26 +157,39 @@ class AuthController {
           await user.updatePassword(newPassword);
         }
       }
-      Navigator.of(context, rootNavigator: true)
-          .pushNamed(AppRoutes.bottomNavBarPageRoute);
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: Text('Success'),
+          content: Text('Profile updated successfully.'),
+          actions: <Widget>[
+            TextButton(
+              child: Text('OK'),
+              onPressed: () {
+                Navigator.of(context, rootNavigator: true)
+                    .pushNamed(AppRoutes.bottomNavBarPageRoute);
+              },
+            ),
+          ],
+        ),
+      );
+
     } catch (error) {
-      print('Error updating profile: $error');
-      throw error;
-    }
-  }
-
-
-
-  // Change the current user's password
-  Future<void> changePassword(String newPassword) async {
-    try {
-      User? user = getCurrentUser();
-      if (user != null) {
-        await user.updatePassword(newPassword);
-      }
-    } catch (error) {
-      print('Error changing password: $error');
-      throw error;
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: Text('ERROR'),
+          content: Text(error.toString()),
+          actions: <Widget>[
+            TextButton(
+              child: Text('OK'),
+              onPressed: () {
+                Navigator.pop(context);
+              },
+            ),
+          ],
+        ),
+      );
     }
   }
 
@@ -149,13 +202,40 @@ class AuthController {
         // Delete the user's profile
         await currentUser.delete();
 
-
+        showDialog(
+          context: context,
+          builder: (context) => AlertDialog(
+            title: Text('WARNING'),
+            content: Text('Are you sure,you want to delete your account?'),
+            actions: <Widget>[
+              TextButton(
+                child: Text('OK'),
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+              ),
+            ],
+          ),
+        );
         // Sign out the user
         signOut();
       }
     } catch (error) {
-      print('Error deleting profile: $error');
-      throw error;
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: Text('ERROR'),
+          content: Text(error.toString()),
+          actions: <Widget>[
+            TextButton(
+              child: Text('OK'),
+              onPressed: () {
+                Navigator.pop(context);
+              },
+            ),
+          ],
+        ),
+      );
     }
   }
 

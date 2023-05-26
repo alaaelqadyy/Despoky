@@ -1,4 +1,3 @@
-
 import 'package:Despoky/utilities/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
@@ -44,9 +43,9 @@ class _EditProfilePageState extends State<EditProfilePage>
     _auth = AuthController(context);
     final user = _auth.getCurrentUser();
     if (user != null) {
-      final displayName = user.displayName;
-      final firstName = displayName?.split(' ').first;
-      final lastName = displayName?.split(' ').last;
+      //final displayName = user.displayName;
+      // final firstName = displayName?.split(' ').first;
+      // final lastName = displayName?.split(' ').last;
       //_firstNameController.text = firstName ?? '';
       //_lastNameController.text = lastName ?? '';
       _fullNameController.text = user.displayName ?? '';
@@ -220,6 +219,7 @@ class _EditProfilePageState extends State<EditProfilePage>
                                   borderSide: BorderSide.none,
                                 ),
                               ),
+                              validator: (val) => val!.isEmpty ? 'Required' : null,
                             ),
                             SizedBox(height: 4.0.h),
                             TextFormField(
@@ -268,11 +268,7 @@ class _EditProfilePageState extends State<EditProfilePage>
                                   borderSide: BorderSide.none,
                                 ),
                               ),
-                              validator: (val) {
-                                if (val!.isEmpty) {
-                                  return 'Please enter your passwor to complete';
-                                }
-                              },
+                              validator: (val) => val!.isEmpty ? 'Required' : null,
                             ),
                             SizedBox(height: 4.0.h),
                             TextFormField(

@@ -9,6 +9,7 @@ import 'package:sizer/sizer.dart';
 
 import '../../models/Product.dart';
 import '../shared/homeListItem.dart';
+import '../shared/header.dart';
 import 'category_detailes.dart';
 import 'controllers/service_controller.dart';
 import 'utilities/assets.dart';
@@ -37,7 +38,7 @@ class HomeScreen extends StatelessWidget {
                     appAssets.homeImage,
                     fit: BoxFit.cover,
                     width: double.infinity,
-                    height: 45.h,
+                    height: 60.h,
                   ),
                 ],
               ),
@@ -48,7 +49,7 @@ class HomeScreen extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
                       Container(
-                        height: 4.h,
+                        height: 7.h,
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
@@ -71,10 +72,10 @@ class HomeScreen extends StatelessWidget {
                           ],
                         ),
                       ),
-                      SizedBox(height: 2.h),
-                      buildCategorySection(context, 'Child', 'Glasses'),
-                      SizedBox(height: 3.h),
+                      SizedBox(height: 5.h),
                       buildCategorySection(context, 'Child', 'Hats'),
+                      SizedBox(height: 5.h),
+                      buildCategorySection(context, 'Child', 'Glasses'),
                     ],
                   ),
                 ],
@@ -84,7 +85,7 @@ class HomeScreen extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   Container(
-                    height: 4.h,
+                    height: 7.h,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -107,15 +108,15 @@ class HomeScreen extends StatelessWidget {
                       ],
                     ),
                   ),
-                  SizedBox(height: 4.h),
-                  buildCategorySection(context, 'Adults', 'Glasses'),
-                  SizedBox(height: 4.h),
+                  SizedBox(height: 5.h),
                   buildCategorySection(context, 'Adults', 'Hats'),
-                  SizedBox(height: 4.h),
+                  SizedBox(height: 10.h),
+                  buildCategorySection(context, 'Adults', 'Glasses'),
+                  SizedBox(height: 10.h),
                   buildCategorySection(context, 'Adults', 'Earrings'),
-                  SizedBox(height: 4.h),
+                  SizedBox(height: 10.h),
                   buildCategorySection(context, 'Adults', 'T-shits'),
-                  SizedBox(height: 8.h),
+                  SizedBox(height: 10.h),
                 ],
               ),
             ],
@@ -135,7 +136,7 @@ class HomeScreen extends StatelessWidget {
     return Column(
       children: [
         Padding(
-          padding: EdgeInsets.symmetric(horizontal: 3.w),
+          padding: EdgeInsets.symmetric(horizontal: 2.w),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
 
@@ -145,7 +146,7 @@ class HomeScreen extends StatelessWidget {
                 style: GoogleFonts.tenorSans(
                   textStyle: TextStyle(
                     color: Colors.white70,
-                    fontSize: 20.sp,
+                    fontSize: 16.sp,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -171,7 +172,7 @@ class HomeScreen extends StatelessWidget {
                   'See All',
                   style: GoogleFonts.tenorSans(
                     textStyle:
-                        TextStyle(color: Colors.white70, fontSize: 13.sp),
+                        TextStyle(color: Colors.white70, fontSize: 12.sp),
                   ),
                 ),
               ),
@@ -188,13 +189,13 @@ class HomeScreen extends StatelessWidget {
             if (snapshot.hasData) {
               final List<Product> products = snapshot.data!;
               return SizedBox(
-                height: 27.h,
+                height: 37.h,
                 child: ListView(
                   scrollDirection: Axis.horizontal,
                   children: products
                       .map(
                         (e) => Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 3.w),
+                          padding: EdgeInsets.only(left: 6.w, right: 6.w),
                           child: GestureDetector(
                             onTap: () {
                               Navigator.push(
