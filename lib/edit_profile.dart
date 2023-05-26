@@ -12,6 +12,8 @@ class EditProfilePage extends StatefulWidget {
 
 class _EditProfilePageState extends State<EditProfilePage>
     with SingleTickerProviderStateMixin {
+  final _formKey = GlobalKey<FormState>();
+
   final TextEditingController _firstNameController = TextEditingController();
   final TextEditingController _lastNameController = TextEditingController();
   final TextEditingController _fullNameController = TextEditingController();
@@ -69,7 +71,7 @@ class _EditProfilePageState extends State<EditProfilePage>
 
   Future<void> _saveProfile() async {
     final userId = _auth.getCurrentUser()?.uid;
-    if (userId != null) {
+    if (userId != null)  {
       await _auth.updateProfile(
         userId: userId,
         // firstName: _firstNameController.text,
@@ -81,7 +83,12 @@ class _EditProfilePageState extends State<EditProfilePage>
         newPassword: _newPasswordController.text,
       );
       Navigator.of(context, rootNavigator: true)
-          .pushNamed(AppRoutes.bottomNavBarPageRoute);
+           .pushNamed(AppRoutes.bottomNavBarPageRoute);
+
+      // if(_formKey.currentState!.validate()){
+      //   Navigator.of(context, rootNavigator: true)
+      //     .pushNamed(AppRoutes.bottomNavBarPageRoute);
+      // }
     }
   }
 
@@ -179,6 +186,9 @@ class _EditProfilePageState extends State<EditProfilePage>
                             SizedBox(height: 4.0.h),
                             TextFormField(
                               controller: _fullNameController,
+                              validator: (val) =>
+                              val!.isEmpty ? 'Required ' : null,
+
                               style: TextStyle(color: Colors.grey),
                               cursorColor: Colors.white70,
                               decoration: InputDecoration(
@@ -199,6 +209,9 @@ class _EditProfilePageState extends State<EditProfilePage>
                             SizedBox(height: 4.0.h),
                             TextFormField(
                               controller: _emailController,
+                              validator: (val) =>
+                              val!.isEmpty ? 'Required ' : null,
+
                               style: TextStyle(color: Colors.grey),
                               cursorColor: Colors.white70,
                               decoration: InputDecoration(
@@ -219,11 +232,13 @@ class _EditProfilePageState extends State<EditProfilePage>
                                   borderSide: BorderSide.none,
                                 ),
                               ),
-                              validator: (val) => val!.isEmpty ? 'Required' : null,
                             ),
                             SizedBox(height: 4.0.h),
                             TextFormField(
                               controller: _phoneNumberController,
+                              validator: (val) =>
+                              val!.isEmpty ? 'Required ' : null,
+
                               style: TextStyle(color: Colors.grey),
                               cursorColor: Colors.white70,
                               decoration: InputDecoration(
@@ -273,6 +288,9 @@ class _EditProfilePageState extends State<EditProfilePage>
                             SizedBox(height: 4.0.h),
                             TextFormField(
                               controller: _newPasswordController,
+                              validator: (val) =>
+                              val!.isEmpty ? 'Required ' : null,
+
                               style: TextStyle(color: Colors.grey),
                               cursorColor: Colors.white70,
                               decoration: InputDecoration(

@@ -72,9 +72,9 @@ class HomeScreen extends StatelessWidget {
                           ],
                         ),
                       ),
-                      SizedBox(height: 5.h),
+                      SizedBox(height: 3.h),
                       buildCategorySection(context, 'Child', 'Hats'),
-                      SizedBox(height: 5.h),
+                      SizedBox(height: 4.h),
                       buildCategorySection(context, 'Child', 'Glasses'),
                     ],
                   ),
@@ -108,13 +108,13 @@ class HomeScreen extends StatelessWidget {
                       ],
                     ),
                   ),
-                  SizedBox(height: 5.h),
+                  SizedBox(height: 3.h),
                   buildCategorySection(context, 'Adults', 'Hats'),
-                  SizedBox(height: 10.h),
+                  SizedBox(height: 5.h),
                   buildCategorySection(context, 'Adults', 'Glasses'),
-                  SizedBox(height: 10.h),
+                  SizedBox(height: 5.h),
                   buildCategorySection(context, 'Adults', 'Earrings'),
-                  SizedBox(height: 10.h),
+                  SizedBox(height: 5.h),
                   buildCategorySection(context, 'Adults', 'T-shits'),
                   SizedBox(height: 10.h),
                 ],
@@ -145,9 +145,9 @@ class HomeScreen extends StatelessWidget {
                 sectionTitle,
                 style: GoogleFonts.tenorSans(
                   textStyle: TextStyle(
-                    color: Colors.white70,
-                    fontSize: 16.sp,
-                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                    fontSize: 20.sp,
+                    //fontWeight: FontWeight.bold,
                   ),
                 ),
               ),
@@ -172,7 +172,7 @@ class HomeScreen extends StatelessWidget {
                   'See All',
                   style: GoogleFonts.tenorSans(
                     textStyle:
-                        TextStyle(color: Colors.white70, fontSize: 12.sp),
+                        TextStyle(color: Colors.white70, fontSize: 13.sp),
                   ),
                 ),
               ),
@@ -189,13 +189,13 @@ class HomeScreen extends StatelessWidget {
             if (snapshot.hasData) {
               final List<Product> products = snapshot.data!;
               return SizedBox(
-                height: 37.h,
+                height: 26.h,
                 child: ListView(
                   scrollDirection: Axis.horizontal,
                   children: products
                       .map(
                         (e) => Padding(
-                          padding: EdgeInsets.only(left: 6.w, right: 6.w),
+                          padding: EdgeInsets.only(left: 2.w,right: 4.w),
                           child: GestureDetector(
                             onTap: () {
                               Navigator.push(
