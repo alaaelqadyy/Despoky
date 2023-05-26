@@ -242,7 +242,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             if (val!.isEmpty) {
                               return 'Required';
                             }
-                            if (!isValidEgyptPhoneNumber(val)) {
+                            // Prepend "+20" to the phone number
+                            String phoneNumber = "+20" + val;
+                            if (!isValidEgyptPhoneNumber(phoneNumber)) {
                               return 'Invalid phone number';
                             }
                             return null;
@@ -254,6 +256,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             fillColor: Color(0xFF33333f),
                             labelText: 'Phone Number',
                             labelStyle: TextStyle(color: Colors.white70),
+                            prefixText: '+20 ', // Display "+20 " as a prefix
+                            prefixStyle: TextStyle(color: Colors.white70),
                             suffixIcon: Icon(
                               Icons.phone,
                               color: Colors.white70,
@@ -318,14 +322,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
   }
 }
 
+
 bool isValidEgyptPhoneNumber(String phoneNumber) {
   // Remove any leading or trailing whitespace
   phoneNumber = phoneNumber.trim();
-
-  // Check if the phone number starts with the country code for Egypt
-  if (!phoneNumber.startsWith("+2")) {
-    return false;
-  }
 
   // Remove the country code
   phoneNumber = phoneNumber.substring(3);
@@ -334,16 +334,17 @@ bool isValidEgyptPhoneNumber(String phoneNumber) {
   phoneNumber = phoneNumber.replaceAll(" ", "").replaceAll("-", "");
 
   // Check if the phone number consists of 11 digits
-  if (phoneNumber.length != 11) {
+  if (phoneNumber.length != 10) {
     return false;
   }
 
   // Check if the phone number starts with a valid network provider code
-  String providerCode = phoneNumber.substring(0, 3);
-  List<String> validProviderCodes = ["010", "011", "012", "015"];
+  String providerCode = phoneNumber.substring(0, 2);
+  List<String> validProviderCodes = ["10", "11", "12", "15"];
   if (!validProviderCodes.contains(providerCode)) {
     return false;
   }
 
   return true;
 }
+
