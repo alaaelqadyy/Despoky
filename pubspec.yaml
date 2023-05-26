@@ -33,6 +33,7 @@ flutter:
 
   uses-material-design: true
   assets:
+    - assets/
     - assets/icons/
     - assets/images/
     - assets/products/adults/t-shirts/

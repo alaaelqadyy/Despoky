@@ -79,15 +79,16 @@ class _ProfileScreenState extends State<ProfileScreen>
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: <Widget>[
                         SizedBox(height: 15.h),
-                        ScaleTransition(
-                          scale: _animation,
-                          child: CircleAvatar(
-                            backgroundColor: Colors.white,
-                            radius: 50.sp,
-                            child: Icon(Icons.person,
-                                size: 50.sp, color: Color(0xFF171725)),
-                          ),
+
+                        Image.asset(
+                          'assets/user.png',
+                          width: 36.w,
+                          height: 16.h,
+                          color: Colors.white,
                         ),
+
+
+
                         SizedBox(height: 5.h),
                         TyperAnimatedTextKit(
                           text: ['Hello, $_userName!'],
@@ -103,7 +104,7 @@ class _ProfileScreenState extends State<ProfileScreen>
                         SizedBox(height: 8.h),
                         Text(
                           _userEmail,
-                          style: GoogleFonts.lato(
+                          style: GoogleFonts.tenorSans(
                             textStyle:
                             TextStyle(fontSize: 14.sp, color: Colors.white),
                           ),
@@ -112,7 +113,7 @@ class _ProfileScreenState extends State<ProfileScreen>
                         SizedBox(height: 3.h),
                         Text(
                           _userPhoneNumber,
-                          style: GoogleFonts.lato(
+                          style: GoogleFonts.tenorSans(
                             textStyle:
                             TextStyle(fontSize: 14.sp, color: Colors.white),
                           ),
@@ -139,7 +140,7 @@ class _ProfileScreenState extends State<ProfileScreen>
                             },
                             child: Text(
                               'Edit Profile',
-                              style: GoogleFonts.lato(
+                              style: GoogleFonts.tenorSans(
                                 textStyle: TextStyle(
                                   fontSize: 14.sp,
                                   fontWeight: FontWeight.bold,
@@ -155,7 +156,7 @@ class _ProfileScreenState extends State<ProfileScreen>
                           child: TextButton(
                             style: ButtonStyle(
                               backgroundColor: MaterialStateProperty.all<Color>(
-                                Colors.redAccent,
+                                Colors.grey,
                               ),
                               shape: MaterialStateProperty.all<
                                   RoundedRectangleBorder>(
@@ -170,7 +171,7 @@ class _ProfileScreenState extends State<ProfileScreen>
                             },
                             child: Text(
                               'Delete Account',
-                              style: GoogleFonts.lato(
+                              style: GoogleFonts.tenorSans(
                                 textStyle: TextStyle(
                                   fontSize: 14.sp,
                                   fontWeight: FontWeight.bold,

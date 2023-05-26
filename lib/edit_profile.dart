@@ -91,40 +91,22 @@ class _EditProfilePageState extends State<EditProfilePage>
     return Sizer(builder: (context, orientation, deviceType) {
       return Scaffold(
         backgroundColor: Color(0xFF171725),
+        appBar: AppBar(
+          backgroundColor: Color(0xFF171725),
+          elevation: 0,
+        ),
         body: Padding(
           padding: EdgeInsets.all(5.w),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
-              SizedBox(height: 5.h),
-              IconButton(
-                alignment: Alignment.topLeft,
-                onPressed: () {
-                  Navigator.of(context, rootNavigator: true)
-                      .pushNamed(AppRoutes.bottomNavBarPageRoute);
-                },
-                icon: Icon(
-                  Icons.close,
-                  color: Colors.white70,
-                  size: 4.h,
-                ),
+              Image.asset(
+                'assets/user.png',
+                width: 36.w,
+                height: 10.h,
+                color: Colors.white,
               ),
-              AnimatedBuilder(
-                animation: _animationController,
-                builder: (context, child) => ScaleTransition(
-                  scale: _animation,
-                  child: child,
-                ),
-                child: CircleAvatar(
-                  backgroundColor: Colors.white,
-                  radius: 10.0.w,
-                  child: Icon(
-                    Icons.person,
-                    size: 10.0.w,
-                    color: Color(0xFF171725),
-                  ),
-                ),
-              ),
+
               SizedBox(height: 5.0.h),
               TypewriterAnimatedTextKit(
                 text: ['Edit Profile'],
@@ -141,9 +123,8 @@ class _EditProfilePageState extends State<EditProfilePage>
               Expanded(
                 child: SingleChildScrollView(
                   child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                   // crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
-                      SizedBox(height: 8.0.h),
                       Form(
                         child: Column(
                           children: [
@@ -196,7 +177,7 @@ class _EditProfilePageState extends State<EditProfilePage>
                                 ),
                               ],
                             ),*/
-                            SizedBox(height: 5.0.h),
+                            SizedBox(height: 4.0.h),
                             TextFormField(
                               controller: _fullNameController,
                               style: TextStyle(color: Colors.grey),
@@ -211,12 +192,12 @@ class _EditProfilePageState extends State<EditProfilePage>
                                 fillColor: Colors.white.withOpacity(0.3),
                                 filled: true,
                                 border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(2.0.h),
+                                  borderRadius: BorderRadius.circular(5),
                                   borderSide: BorderSide.none,
                                 ),
                               ),
                             ),
-                            SizedBox(height: 5.0.h),
+                            SizedBox(height: 4.0.h),
                             TextFormField(
                               controller: _emailController,
                               style: TextStyle(color: Colors.grey),
@@ -235,12 +216,12 @@ class _EditProfilePageState extends State<EditProfilePage>
                                 fillColor: Colors.white.withOpacity(0.3),
                                 filled: true,
                                 border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(2.0.h),
+                                  borderRadius: BorderRadius.circular(5),
                                   borderSide: BorderSide.none,
                                 ),
                               ),
                             ),
-                            SizedBox(height: 5.0.h),
+                            SizedBox(height: 4.0.h),
                             TextFormField(
                               controller: _phoneNumberController,
                               style: TextStyle(color: Colors.grey),
@@ -259,12 +240,12 @@ class _EditProfilePageState extends State<EditProfilePage>
                                 fillColor: Colors.white.withOpacity(0.3),
                                 filled: true,
                                 border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(2.0.h),
+                                  borderRadius: BorderRadius.circular(5),
                                   borderSide: BorderSide.none,
                                 ),
                               ),
                             ),
-                            SizedBox(height: 5.0.h),
+                            SizedBox(height: 4.0.h),
                             TextFormField(
                               controller: _passwordController,
                               style: TextStyle(color: Colors.grey),
@@ -283,7 +264,7 @@ class _EditProfilePageState extends State<EditProfilePage>
                                 fillColor: Colors.white.withOpacity(0.3),
                                 filled: true,
                                 border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(2.0.h),
+                                  borderRadius: BorderRadius.circular(5),
                                   borderSide: BorderSide.none,
                                 ),
                               ),
@@ -293,7 +274,7 @@ class _EditProfilePageState extends State<EditProfilePage>
                                 }
                               },
                             ),
-                            SizedBox(height: 5.0.h),
+                            SizedBox(height: 4.0.h),
                             TextFormField(
                               controller: _newPasswordController,
                               style: TextStyle(color: Colors.grey),
@@ -312,7 +293,7 @@ class _EditProfilePageState extends State<EditProfilePage>
                                 fillColor: Colors.white.withOpacity(0.3),
                                 filled: true,
                                 border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(2.0.h),
+                                  borderRadius: BorderRadius.circular(5),
                                   borderSide: BorderSide.none,
                                 ),
                               ),

@@ -15,7 +15,7 @@ class _dropDownMenuState extends State<dropDownMenu> {
   Widget build(BuildContext context) {
     return DropdownButton<String>(
       value: null,
-        icon: Icon(Icons.arrow_drop_down , size: 5.h,color: Colors.white70,),
+        icon: Icon(Icons.arrow_drop_down , size: 4.h,color: Colors.white70,),
         elevation: 16,
         isExpanded: true,
         dropdownColor: Color(0xFF171725),

@@ -76,7 +76,13 @@ class _AddShippingAddressPageState extends State<AddShippingAddressPage> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
 
+                    SizedBox(
+                      height: 1.h,
+                    ),
+
                     TextFormField(
+
+
 
                         controller: _fullNameController,
                         focusNode: _fullNameFocusNode,
@@ -104,7 +110,7 @@ class _AddShippingAddressPageState extends State<AddShippingAddressPage> {
                       style: TextStyle(color: Color(0xFF171725)),
 
                     ),
-                    SizedBox(height: 3.h),
+                    SizedBox(height: 5.h),
                     TextFormField(
                       focusNode: _addressFocusNode,
                       controller: _addressController,
@@ -130,7 +136,7 @@ class _AddShippingAddressPageState extends State<AddShippingAddressPage> {
 
                       style: TextStyle(color: Color(0xFF171725)),
                     ), //password
-                    SizedBox(height: 3.h),
+                    SizedBox(height: 5.h),
                     TextFormField(
                       focusNode: _countryFocusNode,
                       controller: _countryController,
@@ -154,7 +160,7 @@ class _AddShippingAddressPageState extends State<AddShippingAddressPage> {
 
                       style: TextStyle(color: Color(0xFF171725)),
                     ),
-                    SizedBox(height: 3.h),
+                    SizedBox(height: 5.h),
                     TextFormField(
                       focusNode: _cityFocusNode,
                       controller: _cityController,
@@ -179,7 +185,7 @@ class _AddShippingAddressPageState extends State<AddShippingAddressPage> {
 
                       style: TextStyle(color: Color(0xFF171725)),
                     ),
-                    SizedBox(height: 3.h),
+                    SizedBox(height: 5.h),
                     TextFormField(
                       focusNode: _stateFocusNode,
                       controller: _stateController,
@@ -203,7 +209,7 @@ class _AddShippingAddressPageState extends State<AddShippingAddressPage> {
 
                       style: TextStyle(color: Color(0xFF171725)),
                     ),
-                    SizedBox(height: 3.h),
+                    SizedBox(height: 5.h),
                     TextFormField(
                       focusNode: _zipCodeFocusNode,
                       controller: _zipCodeController,
@@ -226,10 +232,10 @@ class _AddShippingAddressPageState extends State<AddShippingAddressPage> {
                       style: TextStyle(color: Color(0xFF171725)),
                     ),
 
-                    SizedBox(height: 6.h,),
+                    SizedBox(height: 8.h,),
                     Container(
                       width: 100.w,
-                      height: 9.h,
+                      height: 8.h,
                       child: TextButton(
                         style: ButtonStyle(
                           backgroundColor: MaterialStateProperty.all<Color>(Color(0xFF171725)),
@@ -250,7 +256,7 @@ class _AddShippingAddressPageState extends State<AddShippingAddressPage> {
                           style: GoogleFonts.tenorSans(
                             textStyle: TextStyle(
                               color: Colors.white,
-                              fontSize: 15.sp,
+                              fontSize: 16.sp,
                               fontWeight: FontWeight.bold,
                             ),
                           ),

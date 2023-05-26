@@ -18,6 +18,7 @@ class ShippingAddressComponent extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return Card(
+      elevation: 5,
       color: Color(0xFF33333f),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
       child: Padding(

@@ -21,7 +21,7 @@ class ShippingAddress {
 }
 
 List<ShippingAddress> shippingAddress = [
-  ShippingAddress(id: '3', fullName: 'Fatma Rida', country: 'egypt', address: '6street', city: 'cairo', state: 'demo', zipCode: 'demo')
+  ShippingAddress(id: '3', fullName: 'Fatma Rida', country: 'egypt', address: '6street', city: 'cairo', state: 'helwan', zipCode: 'demo')
 
 
 ];

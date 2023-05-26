@@ -37,7 +37,7 @@ class _cartListItemsState extends State<cartListItems> {
     return SizedBox(
       height: 21.h,
       child: Card(
-        elevation: 0,
+        elevation: 20,
         color: Color(0xFF171725),
         child: Row(
           children: [

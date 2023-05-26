@@ -14,6 +14,10 @@ class DeleteProfile extends StatelessWidget {
   Widget build(BuildContext context) {
     late AuthController _authController = AuthController(context);
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Color(0xFF171725) ,
+        elevation: 0,
+      ),
       body: SafeArea(
         child: Container(
           width: 100.w,
@@ -23,16 +27,7 @@ class DeleteProfile extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              IconButton(
-                onPressed: () {
-                  Navigator.of(context, rootNavigator: true).pushNamed(AppRoutes.bottomNavBarPageRoute);
-                },
-                icon: Icon(
-                  Icons.close,
-                  color: Colors.white,
-                  size: 4.h,
-                ),
-              ),
+
               Padding(
                 padding: EdgeInsets.symmetric(vertical: 4.h, horizontal: 4.w),
                 child: Column(

@@ -3,6 +3,7 @@ import 'package:Despoky/utilities/routes.dart';
 import 'package:flutter/cupertino.dart';
 import '../bottomNavbar.dart';
 import '../category_detailes.dart';
+import '../checkout/add_shipping_address_screen.dart';
 import '../checkout/checkout_screen.dart';
 import '../delete_profile.dart';
 import '../edit_profile.dart';
@@ -17,6 +18,13 @@ Route<dynamic> onGenerateRoute(RouteSettings settings) {
     case AppRoutes.deleteProfilePageRoute:
       return CupertinoPageRoute(
           builder: (_) => DeleteProfile(), settings: settings);
+
+
+
+    case AppRoutes.addAddressPageRoute:
+      return CupertinoPageRoute(
+          builder: (_) => AddShippingAddressPage(), settings: settings);
+
 
     case AppRoutes.checkoutPageRoute:
       return CupertinoPageRoute(

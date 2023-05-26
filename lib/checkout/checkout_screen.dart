@@ -46,17 +46,17 @@ class CheckoutPage extends StatelessWidget {
                   'Shipping address',
                   style: GoogleFonts.tenorSans(
                       textStyle: TextStyle(
-                        fontSize: 15.sp,
+                        fontSize: 17.sp,
                           color: Colors.white,
-                          fontWeight: FontWeight.bold
+                         // fontWeight: FontWeight.bold
                       )
                   ),
                 ),
-                 SizedBox(height: 2.h),
+                 SizedBox(height: 3.h),
 
                 ShippingAddressComponent(shippingAddress: shippingAddress.first,),
 
-                SizedBox(height: 3.h),
+                SizedBox(height: 4.h),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -64,9 +64,9 @@ class CheckoutPage extends StatelessWidget {
                       'Payment',
                       style: GoogleFonts.tenorSans(
                           textStyle: TextStyle(
-                              fontSize: 15.sp,
+                              fontSize: 17.sp,
                               color: Colors.white,
-                              fontWeight: FontWeight.bold
+                             // fontWeight: FontWeight.bold
                           )
                       ),
                     ),
@@ -90,20 +90,20 @@ class CheckoutPage extends StatelessWidget {
                     ),
                   ],
                 ),
-                SizedBox(height: 2.h),
-                PaymentComponent(),
                 SizedBox(height: 3.h),
+                PaymentComponent(),
+                SizedBox(height: 4.h),
                 Text(
                   'Delivery method',
                   style: GoogleFonts.tenorSans(
                       textStyle: TextStyle(
-                          fontSize: 15.sp,
+                          fontSize: 17.sp,
                           color: Colors.white,
-                          fontWeight: FontWeight.bold
+                          //fontWeight: FontWeight.bold
                       )
                   ),
                 ),
-                SizedBox(height: 2.h),
+                SizedBox(height: 3.h),
 
 
                 Padding(
@@ -127,9 +127,9 @@ class CheckoutPage extends StatelessWidget {
                 ),
 
 
-                SizedBox(height: 3.h),
+                SizedBox(height: 5.h),
                 CheckoutOrderDetails(),
-                SizedBox(height:3.h),
+                SizedBox(height:5.h),
 
 
                 Container(

@@ -11,25 +11,28 @@ class CustomAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     AuthController auth =AuthController(context);
-    return AppBar(
-      backgroundColor: colorAnimated.background,
-      elevation: 0,
-      leading: Image.asset(
-        'assets/images/logo.png',
-        color: colorAnimated.color,
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: AppBar(
+        backgroundColor: colorAnimated.background,
+        elevation: 0,
+        leading: Image.asset(
+          'assets/images/logo.png',
+          color: colorAnimated.color,
 
-      ),
-      actions: [
-        IconButton(
-          onPressed: () {
-            auth.signOut();
-          },
-          icon: Icon(
-            Icons.logout,
-            color: colorAnimated.color,
-          ),
         ),
-      ],
+        actions: [
+          IconButton(
+            onPressed: () {
+              auth.signOut();
+            },
+            icon: Icon(
+              Icons.logout,
+              color: colorAnimated.color,
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

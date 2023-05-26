@@ -21,11 +21,19 @@ class CartScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+
+            SizedBox(
+              height: 2.h,
+            ),
+
+
             SizedBox(
               width: 70.w,
               child: TabBar(
                 labelColor: Colors.white,
                 indicatorSize: TabBarIndicatorSize.label,
+                //labelPadding: EdgeInsets.symmetric(horizontal: 2.w),
+                indicatorPadding: EdgeInsets.symmetric(horizontal: 6.w),
                 indicator: UnderlineTabIndicator(
                   borderSide: BorderSide(
                     width: 0.3.w,
@@ -36,10 +44,10 @@ class CartScreen extends StatelessWidget {
                 tabs: [
                   Tab(
                     child: Text(
-                      'MY CART',
+                      'SHOPPING BAG',
                       style: GoogleFonts.tenorSans(
                         textStyle: TextStyle(
-                          fontSize: 12.sp,
+                          fontSize: 10.sp,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
@@ -50,7 +58,7 @@ class CartScreen extends StatelessWidget {
                       'FAVOURITES',
                       style: GoogleFonts.tenorSans(
                         textStyle: TextStyle(
-                          fontSize: 12.sp,
+                          fontSize: 10.sp,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
@@ -87,67 +95,74 @@ class CartScreen extends StatelessWidget {
                                       .toList(),
                                 ),
                               ),
-                              SizedBox(
-                                height: 2.h,
-                              ),
+
                               Container(
                                 width: 100.w,
                                 height: 0.2.h,
                                 color: Colors.grey,
                               ),
                               SizedBox(
-                                height: 2.h,
+                                height: 1.h,
                               ),
                               Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
-                                  Text(
-                                    'SUB TOTAL : ',
-                                    style: GoogleFonts.tenorSans(
-                                      color: Colors.white,
-                                      fontSize: 12.sp,
-                                    ),
+                                  Row(
+                                    children: [
+                                      Text(
+                                        'SUB TOTAL : ',
+                                        style: GoogleFonts.tenorSans(
+                                          color: Colors.white,
+                                          fontSize: 12.sp,
+                                        ),
+                                      ),
+                                      Text(
+                                        '1056\$',
+                                        style: GoogleFonts.tenorSans(
+                                          color: Colors.white,
+                                          fontSize: 12.sp,
+                                        ),
+                                      ),
+                                    ],
                                   ),
-                                  Text(
-                                    '1056\$',
-                                    style: GoogleFonts.tenorSans(
-                                      color: Colors.white,
-                                      fontSize: 12.sp,
-                                    ),
-                                  ),
+
+                                  TextButton(
+                                      onPressed: () {
+                                        Navigator.of(context, rootNavigator: true)
+                                            .pushNamed(AppRoutes.checkoutPageRoute);
+                                      },
+                                      child: Text(
+                                        'CHECKOUT',
+                                        style: GoogleFonts.tenorSans(
+                                          textStyle: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 15.sp,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                      )
+                                  )
+
                                 ],
                               ),
                             ],
                           ),
                         ),
-                        SizedBox(height: 5.h),
-                        Container(
-                          width: 100.w,
-                          height: 8.h,
-                          child: TextButton(
-                            style: ButtonStyle(
-                              backgroundColor:
-                              MaterialStateProperty.all<Color>(
-                                  Colors.white),
-                            ),
-                            onPressed: () {
-                              Navigator.of(context, rootNavigator: true)
-                                  .pushNamed(AppRoutes.checkoutPageRoute);
-                            },
-                            child: Text(
-                              'CHECKOUT',
-                              style: GoogleFonts.tenorSans(
-                                textStyle: TextStyle(
-                                  color: Color(0xFF171725),
-                                  fontSize: 15.sp,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
+                        SizedBox(height: 10.h),
+
                       ],
                     ),
                   ),
+
+
+
+
+
+
+
+
+
+
                   SingleChildScrollView(
                     child: Column(
                       children: [
