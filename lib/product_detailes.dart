@@ -1,3 +1,4 @@
+import 'package:Despoky/models/add_to_favorite.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sizer/sizer.dart';
@@ -5,7 +6,8 @@ import 'package:sizer/sizer.dart';
 import '../../utilities/routes.dart';
 import '../models/Product.dart';
 import '../shared/dropdown_menu.dart';
-import '../controllers/service_controller.dart'; // Updated import
+import '../controllers/service_controller.dart';
+import 'models/add_to_cart.dart'; // Updated import
 
 class ProductDetails extends StatefulWidget {
   final Product product;
@@ -21,7 +23,8 @@ class ProductDetails extends StatefulWidget {
 
 class _ProductDetailsState extends State<ProductDetails> {
   bool isFavorite = false;
-  final ServiceController _productService = ServiceController();
+
+  late final ServiceController _productService;
 
   Color parseColor(String colorValue) {
     try {
@@ -34,10 +37,10 @@ class _ProductDetailsState extends State<ProductDetails> {
 
   @override
   Widget build(BuildContext context) {
+    _productService = ServiceController(context);
     int index = widget.product.image.length;
     return SafeArea(
       child: Scaffold(
-
         body: Container(
           width: 100.w,
           height: 100.h,
@@ -49,13 +52,13 @@ class _ProductDetailsState extends State<ProductDetails> {
                 alignment: Alignment.topLeft,
                 children: [
                   ClipRRect(
-                    borderRadius: BorderRadius.only(bottomLeft: Radius.circular(20), bottomRight: Radius.circular(20)),
+                    borderRadius: BorderRadius.only(
+                        bottomLeft: Radius.circular(20),
+                        bottomRight: Radius.circular(20)),
                     child: Container(
                       color: Colors.white,
                       width: double.infinity,
                       height: 60.h,
-
-
                       child: ListView.builder(
                         //scrollDirection: Axis.horizontal,
                         itemBuilder: (context, index) {
@@ -63,9 +66,9 @@ class _ProductDetailsState extends State<ProductDetails> {
                             padding: EdgeInsets.only(right: 1.w),
                             child: Image.asset(
                               widget.product.image[0],
-                             //fit: BoxFit.cover,
-                             // width: double.infinity,
-                             height: 60.h,
+                              //fit: BoxFit.cover,
+                              // width: double.infinity,
+                              height: 60.h,
                               errorBuilder: (context, error, stackTrace) {
                                 // Handle image loading errors here
                                 return Container();
@@ -73,13 +76,13 @@ class _ProductDetailsState extends State<ProductDetails> {
                             ),
                           );
                         },
-
                       ),
                     ),
                   ),
                   IconButton(
                     onPressed: () {
-                      Navigator.of(context).pushNamed(AppRoutes.bottomNavBarPageRoute);
+                      Navigator.of(context)
+                          .pushNamed(AppRoutes.bottomNavBarPageRoute);
                     },
                     icon: Icon(
                       Icons.arrow_back,
@@ -88,18 +91,16 @@ class _ProductDetailsState extends State<ProductDetails> {
                   ),
                 ],
               ),
-
-
               Padding(
-                padding: EdgeInsets.symmetric(horizontal:2.w, vertical: 2.h),
+                padding: EdgeInsets.symmetric(horizontal: 2.w, vertical: 2.h),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-
                     Text(
                       widget.product.name,
                       style: GoogleFonts.tenorSans(
-                        textStyle: TextStyle(color: Colors.white, fontSize: 20.sp),
+                        textStyle:
+                            TextStyle(color: Colors.white, fontSize: 20.sp),
                       ),
                     ),
                     SizedBox(height: 2.h),
@@ -109,17 +110,33 @@ class _ProductDetailsState extends State<ProductDetails> {
                         SizedBox(
                           width: 20.w,
                           height: 5.h,
-                          child: dropDownMenu(), // Assuming dropDownMenu() is a valid method
+                          child:
+                              dropDownMenu(), // Assuming dropDownMenu() is a valid method
                         ),
                         IconButton(
-                          onPressed: () {
+                          onPressed: () async {
                             setState(() {
                               isFavorite = !isFavorite;
                             });
                             if (isFavorite) {
-                              _productService.addToFavorites('userId', widget.product.id);
+                              await _productService.addToFavorites(
+                                FavoriteProduct(
+                                  id: 'favoriteId',
+                                  productId: widget.product.id,
+                                  description: widget.product.description,
+                                  title: widget.product.name,
+                                  price: widget.product.price.toInt(),
+                                  image: widget.product.image[0],
+                                  size: 'defaultSize',
+                                  quantity: 1,
+                                ),
+                                'userId',
+                              );
                             } else {
-                              _productService.removeFromFavorites('userId', widget.product.id);
+                              await _productService.removeFromFavorites(
+                                'userId',
+                                widget.product.id,
+                              );
                             }
                           },
                           icon: Icon(
@@ -150,7 +167,8 @@ class _ProductDetailsState extends State<ProductDetails> {
                     Text(
                       "\$ ${widget.product.price}",
                       style: GoogleFonts.tenorSans(
-                        textStyle: TextStyle(color: Colors.white, fontSize: 15.sp),
+                        textStyle:
+                            TextStyle(color: Colors.white, fontSize: 15.sp),
                       ),
                     ),
                     SizedBox(
@@ -161,12 +179,13 @@ class _ProductDetailsState extends State<ProductDetails> {
                         Text(
                           'Color',
                           style: GoogleFonts.tenorSans(
-                            textStyle: TextStyle(color: Colors.white, fontSize: 15.sp),
+                            textStyle:
+                                TextStyle(color: Colors.white, fontSize: 15.sp),
                           ),
                         ),
                         SizedBox(width: 3.w),
                         ...widget.product.color.map(
-                              (color) => InkWell(
+                          (color) => InkWell(
                             onTap: () {},
                             child: CircleAvatar(
                               backgroundColor: parseColor(color),
@@ -176,31 +195,33 @@ class _ProductDetailsState extends State<ProductDetails> {
                         ),
                       ],
                     ),
-
                   ],
                 ),
               ),
-
-
-
-
-
-
-
-
               SizedBox(height: 2.h),
-
-
-
               Container(
                 width: 100.w,
                 height: 8.h,
                 child: TextButton(
                   style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all<Color>(Color(0xFF33333f)),
+                    backgroundColor:
+                        MaterialStateProperty.all<Color>(Color(0xFF33333f)),
                   ),
                   onPressed: () {
                     _productService.checkout('category', 'type');
+                    _productService.addToCart(
+                      AddToCartModel(
+                        id: 'productId',
+                        productId: widget.product.id,
+                        description: widget.product.description,
+                        title: widget.product.name,
+                        price: widget.product.price.toInt(),
+                        image: widget.product.image[0],
+                        size: 'defaultSize',
+                        quantity: 1,
+                      ),
+                      'userId',
+                    );
                   },
                   child: Text(
                     '+ ADD TO CART',

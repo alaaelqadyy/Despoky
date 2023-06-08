@@ -6,7 +6,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 version: 1.0.0+1
 
 environment:
-  sdk: '3.0.1'
+  sdk: '3.0.3'
 
 dependencies:
   flutter:
@@ -24,7 +24,7 @@ dev_dependencies:
   flutter_lints: ^2.0.0
   firebase_auth: ^4.4.0
   firebase_core: ^2.9.0
-  cloud_firestore: ^4.7.0
+  cloud_firestore: ^4.8.0
   google_sign_in: ^6.1.0
   fluttertoast: ^8.0.8
   animated_text_kit: ^4.2.1

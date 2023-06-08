@@ -2,52 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sizer/sizer.dart';
 
-import '../models/Product.dart';
-import '../models/add_to_cart.dart';
-import '../controllers/service_controller.dart';
+import '../models/add_to_favorite.dart';
 
-class cartListItems extends StatefulWidget {
-  final AddToCartModel cartItem;
+class FavoriteListItem extends StatefulWidget {
+  final FavoriteProduct favoriteItem;
 
-  const cartListItems({Key? key, required this.cartItem}) : super(key: key);
+  const FavoriteListItem({Key? key, required this.favoriteItem}) : super(key: key);
 
   @override
-  _cartListItemsState createState() => _cartListItemsState();
+  _FavoriteListItemState createState() => _FavoriteListItemState();
 }
 
-class _cartListItemsState extends State<cartListItems> {
-  int quantity = 1;
-  late final Product product;
-  late ServiceController _productService;
-  List<AddToCartModel> cartItems = [];
-
-  void incrementQuantity() {
-    setState(() {
-      if (quantity < widget.cartItem.quantity) {
-        quantity++;
-      }
-    });
-  }
-
-  void decrementQuantity() {
-    setState(() {
-      if (quantity > 1) {
-        quantity--;
-      }
-    });
-  }
-
-  Future<void> fetchCartItems() async {
-    try {
-      List<AddToCartModel> items = await _productService.getCart();
-      setState(() {
-        cartItems = items;
-      });
-    } catch (error) {
-      // Handle error
-      print('Error fetching cart items: $error');
-    }
-  }
+class _FavoriteListItemState extends State<FavoriteListItem> {
 
   @override
   Widget build(BuildContext context) {
@@ -55,13 +21,12 @@ class _cartListItemsState extends State<cartListItems> {
       height: 21.h,
       child: Card(
         elevation: 20,
-        color: Color(0xFF171725),
+        color: const Color(0xFF171725),
         child: Row(
           children: [
             Placeholder(
               fallbackWidth: 20.w,
             ),
-            // Image(image: AssetImage('${cartItem.image}'), width: 20.w,),
             Expanded(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
@@ -71,7 +36,7 @@ class _cartListItemsState extends State<cartListItems> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        ' ${widget.cartItem.title}',
+                        ' ${widget.favoriteItem.title}',
                         style: GoogleFonts.tenorSans(
                           textStyle: TextStyle(
                             color: Colors.white,
@@ -80,16 +45,7 @@ class _cartListItemsState extends State<cartListItems> {
                         ),
                       ),
                       IconButton(
-                        onPressed: () {
-                          // Call the removeFromCart method from the controller
-                          _productService.removeFromCart('userId', widget.cartItem.productId)
-                              .then((_) {
-                            fetchCartItems();
-                          }).catchError((error) {
-                            // Handle error
-                            print('Error removing from cart: $error');
-                          });
-                        },
+                        onPressed: () {},
                         icon: Icon(
                           Icons.delete,
                           color: Colors.white,
@@ -105,7 +61,7 @@ class _cartListItemsState extends State<cartListItems> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          '${widget.cartItem.description}',
+                          '${widget.favoriteItem.description}',
                           style: GoogleFonts.tenorSans(
                             textStyle: TextStyle(
                               color: Colors.grey,
@@ -119,7 +75,7 @@ class _cartListItemsState extends State<cartListItems> {
                           height: 1.h,
                         ),
                         Text(
-                          'Size : ${widget.cartItem.size}',
+                          'Size : ${widget.favoriteItem.size}',
                           style: GoogleFonts.tenorSans(
                             textStyle: TextStyle(
                               color: Colors.white,
@@ -131,7 +87,7 @@ class _cartListItemsState extends State<cartListItems> {
                           height: 1.h,
                         ),
                         Text(
-                          "${widget.cartItem.price} \$",
+                          "${widget.favoriteItem.price} \$",
                           style: GoogleFonts.tenorSans(
                             textStyle: TextStyle(
                               color: Colors.white,
@@ -141,18 +97,6 @@ class _cartListItemsState extends State<cartListItems> {
                         ),
                       ],
                     ),
-                  ),
-                  Row(
-                    children: [
-                      IconButton(
-                        onPressed: decrementQuantity,
-                        icon: Icon(
-                          Icons.remove_circle_outlined,
-                          color: Colors.white,
-                          size: 5.w,
-                        ),
-                      ),
-                    ],
                   ),
                 ],
               ),

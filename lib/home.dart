@@ -15,8 +15,10 @@ import 'controllers/service_controller.dart';
 import 'utilities/assets.dart';
 
 class HomeScreen extends StatelessWidget {
+  late final ServiceController _productService ;
   @override
   Widget build(BuildContext context) {
+    _productService = ServiceController(context);
     return ScaffoldLayoutBuilder(
       backgroundColorAppBar:
       const ColorBuilder(Colors.transparent, Color(0xFF171725)),
@@ -131,7 +133,7 @@ class HomeScreen extends StatelessWidget {
     String categoryType,
     String sectionTitle,
   ) {
-    final ServiceController _productService = ServiceController();
+
 
     return Column(
       children: [

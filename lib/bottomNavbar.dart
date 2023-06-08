@@ -88,7 +88,6 @@ class _CustomNavbarState extends State<CustomNavbar> with SingleTickerProviderSt
             HomeScreen(),
             Container(),
             ProfileScreen(),
-
           ],
         ),
       ),

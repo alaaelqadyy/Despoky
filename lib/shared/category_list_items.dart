@@ -1,8 +1,10 @@
+import 'package:Despoky/models/add_to_cart.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sizer/sizer.dart';
 
 import '../controllers/service_controller.dart';
+import '../models/add_to_favorite.dart';
 import '../utilities/routes.dart';
 import '../models/Product.dart';
 
@@ -18,7 +20,13 @@ class CategoryListItems extends StatefulWidget {
 class _CategoryListItemsState extends State<CategoryListItems> {
   bool isFavorite = false;
   bool isAddedToCart = false;
-  final ServiceController _productService = ServiceController();
+  late ServiceController _productService;
+
+  @override
+  void initState() {
+    super.initState();
+    _productService = ServiceController(context);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -35,8 +43,8 @@ class _CategoryListItemsState extends State<CategoryListItems> {
             children: [
               Container(
                 color: Colors.white,
-                child: Image(
-                  image: AssetImage('${widget.product.image[0]}'),
+                child: Image.asset(
+                  widget.product.image[0],
                   width: 35.w,
                   height: 40.w,
                   fit: BoxFit.fitWidth,
@@ -44,40 +52,21 @@ class _CategoryListItemsState extends State<CategoryListItems> {
               ),
               Expanded(
                 child: Column(
-                 //mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
-
-
                   children: [
                     Text(
                       ' ${widget.product.name}',
                       style: GoogleFonts.tenorSans(
-                        textStyle:
-                        TextStyle(color: Colors.white, fontSize: 17.sp),
+                        textStyle: TextStyle(color: Colors.white, fontSize: 17.sp),
                       ),
                     ),
-
-                    // Text(
-                    //   ' ${widget.product.description}',
-                    //   style: GoogleFonts.tenorSans(
-                    //     textStyle: TextStyle(
-                    //       color: Colors.grey,
-                    //       fontSize: 12.sp,
-                    //     ),
-                    //   ),
-                    //   maxLines: 1,
-                    //   overflow: TextOverflow.ellipsis,
-                    // ),
                     SizedBox(height: 6.h),
                     Text(
                       "  ${widget.product.price} \$",
                       style: GoogleFonts.tenorSans(
-                        textStyle:
-                        TextStyle(color: Colors.white, fontSize: 13.sp),
+                        textStyle: TextStyle(color: Colors.white, fontSize: 13.sp),
                       ),
                     ),
-
-                    //SizedBox(height: 3.h,),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -95,8 +84,17 @@ class _CategoryListItemsState extends State<CategoryListItems> {
                             } else {
                               // Add to cart
                               _productService.addToCart(
+                                AddToCartModel(
+                                  id: 'productId',
+                                  productId: widget.product.id,
+                                  description: widget.product.description,
+                                  title: widget.product.name,
+                                  price: widget.product.price.toInt(),
+                                  image: widget.product.image[0],
+                                  size: widget.product.size[1],
+                                  quantity: 1,
+                                ),
                                 'userId',
-                                widget.product.id,
                               );
                               setState(() {
                                 isAddedToCart = true;
@@ -104,7 +102,7 @@ class _CategoryListItemsState extends State<CategoryListItems> {
                             }
                           },
                           child: Text(
-                            isAddedToCart ? "- REMOVE FROM CART" : "+ADD TO CART",
+                            isAddedToCart ? "- REMOVE FROM CART" : "+ ADD TO CART",
                             style: GoogleFonts.tenorSans(
                               textStyle: TextStyle(
                                 color: Colors.white,
@@ -114,21 +112,39 @@ class _CategoryListItemsState extends State<CategoryListItems> {
                           ),
                         ),
                         IconButton(
-                          onPressed: () {
+                          onPressed: () async {
                             setState(() {
                               isFavorite = !isFavorite;
                             });
+                            if (isFavorite) {
+                              await _productService.addToFavorites(
+                                FavoriteProduct(
+                                  id: 'favoriteId',
+                                  productId: widget.product.id,
+                                  description: widget.product.description,
+                                  title: widget.product.name,
+                                  price: widget.product.price.toInt(),
+                                  image: widget.product.image[0],
+                                  size: widget.product.size[1],
+                                  quantity: 1,
+                                ),
+                                'userId',
+                              );
+                            } else {
+                              await _productService.removeFromFavorites(
+                                'userId',
+                                widget.product.id,
+                              );
+                            }
                           },
                           icon: Icon(
-                            isFavorite
-                                ? Icons.favorite
-                                : Icons.favorite_border,
+                            isFavorite ? Icons.favorite : Icons.favorite_border,
                             color: isFavorite ? Colors.red : Colors.white,
                             size: 3.h,
                           ),
                         ),
                       ],
-                    )
+                    ),
                   ],
                 ),
               ),

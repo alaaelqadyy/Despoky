@@ -1,17 +1,68 @@
+import 'package:Despoky/shared/favorite_list_item.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sizer/sizer.dart';
 
-import '../../models/add_to_cart.dart';
+import 'package:Despoky/models/add_to_cart.dart';
 import '../../controllers/service_controller.dart';
 import '../shared/cart_list_items.dart';
 import '../utilities/routes.dart';
+import '../../models/add_to_favorite.dart';
 
-class CartScreen extends StatelessWidget {
-  final ServiceController _serviceController = ServiceController();
+class CartScreen extends StatefulWidget {
+  @override
+  _CartScreenState createState() => _CartScreenState();
+}
+
+class _CartScreenState extends State<CartScreen> {
+  late ServiceController _serviceController ;
+
+  List<AddToCartModel> cartItems = [];
+  List<FavoriteProduct> favoriteItems = [];
+
+  @override
+  void initState() {
+    super.initState();
+    _serviceController = ServiceController(context);
+    fetchCartItems();
+    fetchFavoriteItems();
+  }
+
+  Future<void> fetchCartItems() async {
+    try {
+      List<AddToCartModel> items = await _serviceController.getCart();
+      setState(() {
+        cartItems = items;
+      });
+    } catch (error) {
+      // Handle error
+      print('Error fetching cart items: $error');
+    }
+  }
+
+  Future<void> fetchFavoriteItems() async {
+    try {
+      List<FavoriteProduct> items =  await _serviceController.getFavorites();
+      setState(() {
+        favoriteItems = items;
+      });
+    } catch (error) {
+      // Handle error
+      print('Error fetching favorite items: $error');
+    }
+  }
+
+  double calculateSubtotal() {
+    double subtotal = 0.0;
+    for (var item in cartItems) {
+      subtotal += item.price;
+    }
+    return subtotal;
+  }
 
   @override
   Widget build(BuildContext context) {
+
     return Container(
       width: double.infinity,
       height: double.infinity,
@@ -21,18 +72,14 @@ class CartScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-
             SizedBox(
               height: 2.h,
             ),
-
-
             SizedBox(
               width: 70.w,
               child: TabBar(
                 labelColor: Colors.white,
                 indicatorSize: TabBarIndicatorSize.label,
-                //labelPadding: EdgeInsets.symmetric(horizontal: 2.w),
                 indicatorPadding: EdgeInsets.symmetric(horizontal: 6.w),
                 indicator: UnderlineTabIndicator(
                   borderSide: BorderSide(
@@ -83,19 +130,18 @@ class CartScreen extends StatelessWidget {
                               ),
                               SizedBox(
                                 child: ListView(
-                                  physics: NeverScrollableScrollPhysics(),
+                                  physics: const NeverScrollableScrollPhysics(),
                                   shrinkWrap: true,
-                                  children: cartItem
+                                  children: cartItems
                                       .map(
-                                        (e) => Padding(
+                                        (item) => Padding(
                                       padding: const EdgeInsets.all(3.0),
-                                      child: cartListItems(cartItem: e),
+                                      child: cartListItems(cartItem: item),
                                     ),
                                   )
                                       .toList(),
                                 ),
                               ),
-
                               Container(
                                 width: 100.w,
                                 height: 0.2.h,
@@ -105,19 +151,13 @@ class CartScreen extends StatelessWidget {
                                 height: 1.h,
                               ),
                               Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                MainAxisAlignment.spaceBetween,
                                 children: [
                                   Row(
                                     children: [
                                       Text(
-                                        'SUB TOTAL : ',
-                                        style: GoogleFonts.tenorSans(
-                                          color: Colors.white,
-                                          fontSize: 12.sp,
-                                        ),
-                                      ),
-                                      Text(
-                                        '1056\$',
+                                        'SUB TOTAL : \$${calculateSubtotal().toStringAsFixed(2)}',
                                         style: GoogleFonts.tenorSans(
                                           color: Colors.white,
                                           fontSize: 12.sp,
@@ -125,72 +165,51 @@ class CartScreen extends StatelessWidget {
                                       ),
                                     ],
                                   ),
-
                                   TextButton(
-                                      onPressed: () {
-                                        Navigator.of(context, rootNavigator: true)
-                                            .pushNamed(AppRoutes.checkoutPageRoute);
-                                      },
-                                      child: Text(
-                                        'CHECKOUT',
-                                        style: GoogleFonts.tenorSans(
-                                          textStyle: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 15.sp,
-                                            fontWeight: FontWeight.bold,
-                                          ),
+                                    onPressed: () {
+                                      Navigator.of(context, rootNavigator: true)
+                                          .pushNamed(
+                                          AppRoutes.checkoutPageRoute);
+                                    },
+                                    child: Text(
+                                      'CHECKOUT',
+                                      style: GoogleFonts.tenorSans(
+                                        textStyle: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 15.sp,
+                                          fontWeight: FontWeight.bold,
                                         ),
-                                      )
+                                      ),
+                                    ),
                                   )
-
                                 ],
                               ),
                             ],
                           ),
                         ),
                         SizedBox(height: 10.h),
-
                       ],
                     ),
                   ),
-
-
-
-
-
-
-
-
-
-
                   SingleChildScrollView(
                     child: Column(
                       children: [
-                        FutureBuilder<List<Map<String, dynamic>>>(
-                          future: _serviceController.getFavorites(),
-                          builder: (context, snapshot) {
-                            if (snapshot.hasData) {
-                              final favorites = snapshot.data!;
-                              if (favorites.isEmpty) {
-                                return Text('No favorites found.');
-                              }
-                              return ListView.builder(
-                                physics: NeverScrollableScrollPhysics(),
-                                shrinkWrap: true,
-                                itemCount: favorites.length,
-                                itemBuilder: (context, index) {
-                                  final favorite = favorites[index];
-                                  return ListTile(
-                                    title: Text(favorite['name']),
-                                    // Customize the UI as needed
-                                  );
-                                },
-                              );
-                            } else if (snapshot.hasError) {
-                              return Text('Error loading favorites.');
-                            }
-                            return CircularProgressIndicator();
-                          },
+                        if (favoriteItems.isEmpty)
+                          Text('No favorites found.')
+                        else
+                          SizedBox(
+                          child: ListView(
+                            physics: const NeverScrollableScrollPhysics(),
+                            shrinkWrap: true,
+                            children: favoriteItems
+                                .map(
+                                  (item) => Padding(
+                                padding: const EdgeInsets.all(3.0),
+                                child: FavoriteListItem(favoriteItem: item),
+                              ),
+                            )
+                                .toList(),
+                          ),
                         ),
                       ],
                     ),

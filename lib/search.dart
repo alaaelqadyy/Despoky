@@ -22,7 +22,7 @@ class _SearchPageState extends State<SearchPage> {
       });
     } else {
       try {
-        final results = await ServiceController().search(query);
+        final results = await ServiceController(context).search(query);
         setState(() {
           _searchResults = results.cast<Product>();
         });
@@ -65,9 +65,9 @@ class _SearchPageState extends State<SearchPage> {
                 hintText: 'Search',
                 hintStyle:GoogleFonts.tenorSans(
                   textStyle:TextStyle(
-                  color: Colors.white70,
-                  fontSize: 17.sp,
-                ),
+                    color: Colors.white70,
+                    fontSize: 17.sp,
+                  ),
                 ),
                 prefixIcon:
                 Icon(Icons.search, color: Colors.white, size: 6.w),

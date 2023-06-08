@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-class AddToCartModel {
+class FavoriteProduct{
   final String id;
   final String productId;
   final String description;
@@ -10,7 +10,7 @@ class AddToCartModel {
   final String size;
   final int quantity;
 
-  AddToCartModel({
+  FavoriteProduct({
     required this.id,
     required this.productId,
     required this.description,
@@ -21,9 +21,9 @@ class AddToCartModel {
     required this.quantity,
   });
 
-  factory AddToCartModel.fromSnapshot(DocumentSnapshot doc) {
+  factory FavoriteProduct.fromSnapshot(DocumentSnapshot doc) {
     final data = doc.data() as Map<String, dynamic>;
-    return AddToCartModel(
+    return FavoriteProduct(
       id: doc.id,
       productId: data['productId'],
       description: data['description'],
@@ -47,3 +47,4 @@ class AddToCartModel {
     };
   }
 }
+
