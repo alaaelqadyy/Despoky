@@ -28,6 +28,7 @@ class _CategoryListItemsState extends State<CategoryListItems> {
     _productService = ServiceController(context);
   }
 
+
   @override
   Widget build(BuildContext context) {
     return InkWell(
@@ -91,7 +92,7 @@ class _CategoryListItemsState extends State<CategoryListItems> {
                                   title: widget.product.name,
                                   price: widget.product.price.toInt(),
                                   image: widget.product.image[0],
-                                  size: widget.product.size[1],
+                                  size: 'default',
                                   quantity: 1,
                                 ),
                                 'userId',
@@ -125,7 +126,7 @@ class _CategoryListItemsState extends State<CategoryListItems> {
                                   title: widget.product.name,
                                   price: widget.product.price.toInt(),
                                   image: widget.product.image[0],
-                                  size: widget.product.size[1],
+                                  size: 'default',
                                   quantity: 1,
                                 ),
                                 'userId',

@@ -72,21 +72,6 @@ class ServiceController {
         _firestore.collection('users').doc(userId).collection('favorites');
         await favCollection.add(favoriteProduct.toMap());
 
-        showDialog(
-          context: context,
-          builder: (context) => AlertDialog(
-            title: Text('Success'),
-            content: Text('Product added to cart.'),
-            actions: <Widget>[
-              TextButton(
-                child: Text('OK'),
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-              ),
-            ],
-          ),
-        );
       }
     } catch (error) {
       showDialog(
@@ -162,21 +147,7 @@ class ServiceController {
             _firestore.collection('users').doc(userId).collection('cart');
         await cartCollection.add(cartProduct.toMap());
 
-        showDialog(
-          context: context,
-          builder: (context) => AlertDialog(
-            title: Text('Success'),
-            content: Text('Product added to cart.'),
-            actions: <Widget>[
-              TextButton(
-                child: Text('OK'),
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-              ),
-            ],
-          ),
-        );
+
       }
     } catch (error) {
       showDialog(
@@ -214,7 +185,6 @@ class ServiceController {
       throw error;
     }
   }
-
 
 // Checkout
   Future<void> checkout(String category, String type) async {

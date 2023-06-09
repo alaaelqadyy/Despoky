@@ -2,18 +2,59 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sizer/sizer.dart';
 
+import '../controllers/service_controller.dart';
 import '../models/add_to_favorite.dart';
 
 class FavoriteListItem extends StatefulWidget {
   final FavoriteProduct favoriteItem;
 
-  const FavoriteListItem({Key? key, required this.favoriteItem}) : super(key: key);
+  const FavoriteListItem({Key? key, required this.favoriteItem})
+      : super(key: key);
 
   @override
   _FavoriteListItemState createState() => _FavoriteListItemState();
 }
 
 class _FavoriteListItemState extends State<FavoriteListItem> {
+  late ServiceController _productService;
+  List<FavoriteProduct> favoriteItems = [];
+
+  @override
+  void initState() {
+    super.initState();
+    _productService =
+        ServiceController(context); // Initialize the service controller
+  }
+
+  Future<void> removeFromFavorites() async {
+    try {
+      await _productService.removeFromFavorites(
+        _productService.authController.getCurrentUser()!.uid,
+        widget.favoriteItem.id,
+      );
+     // setState(() {
+        // Remove the item from the list
+      //  favoriteItems.removeWhere((item) => item.id == widget.favoriteItem.id);
+     // });
+
+    } catch (error) {
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: Text('Error'),
+          content: Text(error.toString()),
+          actions: <Widget>[
+            TextButton(
+              child: Text('OK'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        ),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -24,8 +65,14 @@ class _FavoriteListItemState extends State<FavoriteListItem> {
         color: const Color(0xFF171725),
         child: Row(
           children: [
-            Placeholder(
-              fallbackWidth: 20.w,
+            Container(
+              color: Colors.white,
+              child: Image.asset(
+                widget.favoriteItem.image,
+                width: 35.w,
+                height: 40.w,
+                fit: BoxFit.fitWidth,
+              ),
             ),
             Expanded(
               child: Column(
@@ -45,7 +92,8 @@ class _FavoriteListItemState extends State<FavoriteListItem> {
                         ),
                       ),
                       IconButton(
-                        onPressed: () {},
+                        onPressed: removeFromFavorites,
+                        // Call the remove function
                         icon: Icon(
                           Icons.delete,
                           color: Colors.white,
@@ -79,7 +127,7 @@ class _FavoriteListItemState extends State<FavoriteListItem> {
                           style: GoogleFonts.tenorSans(
                             textStyle: TextStyle(
                               color: Colors.white,
-                              fontSize: 12.sp,
+                              fontSize: 10.sp,
                             ),
                           ),
                         ),
@@ -87,12 +135,13 @@ class _FavoriteListItemState extends State<FavoriteListItem> {
                           height: 1.h,
                         ),
                         Text(
-                          "${widget.favoriteItem.price} \$",
+                          "  ${widget.favoriteItem.price} \$",
                           style: GoogleFonts.tenorSans(
-                            textStyle: TextStyle(
-                              color: Colors.white,
-                              fontSize: 12.sp,
-                            ),
+                            textStyle:
+                                TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 13.sp
+                                ),
                           ),
                         ),
                       ],

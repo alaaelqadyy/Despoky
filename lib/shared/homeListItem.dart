@@ -33,25 +33,29 @@ class HomeListItem extends StatelessWidget {
               SizedBox(
                 height: 1.h,
               ),
-              Text(
-                product.name,
-                style: GoogleFonts.tenorSans(
-                  textStyle: TextStyle(
-                    color: Colors.white,
-                    fontSize: 13.sp,
-                    // fontWeight: FontWeight.bold,
+              Expanded(
+                child: Text(
+                  product.name,
+                  style: GoogleFonts.tenorSans(
+                    textStyle: TextStyle(
+                      color: Colors.white,
+                      fontSize: 13.sp,
+                      // fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ),
               ),
               SizedBox(
                 height: 1.h,
               ),
-              Text(
-                " ${product.price} \$",
-                style: GoogleFonts.tenorSans(
-                  textStyle: TextStyle(
-                    color: Colors.white,
-                    fontSize: 13.sp,
+              Expanded(
+                child: Text(
+                  " ${product.price} \$",
+                  style: GoogleFonts.tenorSans(
+                    textStyle: TextStyle(
+                      color: Colors.white,
+                      fontSize: 13.sp,
+                    ),
                   ),
                 ),
               ),

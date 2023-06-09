@@ -21,6 +21,13 @@ class _cartListItemsState extends State<cartListItems> {
   late ServiceController _productService;
   List<AddToCartModel> cartItems = [];
 
+  @override
+  void initState() {
+    super.initState();
+    _productService =
+        ServiceController(context); // Initialize the service controller
+  }
+
   void incrementQuantity() {
     setState(() {
       if (quantity < widget.cartItem.quantity) {
@@ -37,15 +44,31 @@ class _cartListItemsState extends State<cartListItems> {
     });
   }
 
-  Future<void> fetchCartItems() async {
+  Future<void> removeFromCart() async {
     try {
-      List<AddToCartModel> items = await _productService.getCart();
+      await _productService.removeFromCart(
+          _productService.authController.getCurrentUser()!.uid,
+          widget.cartItem.id);
       setState(() {
-        cartItems = items;
+        cartItems.remove(widget.cartItem);
       });
+
     } catch (error) {
-      // Handle error
-      print('Error fetching cart items: $error');
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: Text('Error'),
+          content: Text(error.toString()),
+          actions: <Widget>[
+            TextButton(
+              child: Text('OK'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        ),
+      );
     }
   }
 
@@ -58,10 +81,16 @@ class _cartListItemsState extends State<cartListItems> {
         color: Color(0xFF171725),
         child: Row(
           children: [
-            Placeholder(
-              fallbackWidth: 20.w,
+            Container(
+            color: Colors.white,
+            child: Image.asset(
+              widget.cartItem.image,
+              width: 25.w,
+              height: 30.w,
+              fit: BoxFit.fitWidth,
             ),
-            // Image(image: AssetImage('${cartItem.image}'), width: 20.w,),
+          ),
+
             Expanded(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
@@ -80,16 +109,7 @@ class _cartListItemsState extends State<cartListItems> {
                         ),
                       ),
                       IconButton(
-                        onPressed: () {
-                          // Call the removeFromCart method from the controller
-                          _productService.removeFromCart('userId', widget.cartItem.productId)
-                              .then((_) {
-                            fetchCartItems();
-                          }).catchError((error) {
-                            // Handle error
-                            print('Error removing from cart: $error');
-                          });
-                        },
+                        onPressed: removeFromCart,
                         icon: Icon(
                           Icons.delete,
                           color: Colors.white,
@@ -148,6 +168,23 @@ class _cartListItemsState extends State<cartListItems> {
                         onPressed: decrementQuantity,
                         icon: Icon(
                           Icons.remove_circle_outlined,
+                          color: Colors.white,
+                          size: 5.w,
+                        ),
+                      ),
+                      Text(
+                        quantity.toString(),
+                        style: GoogleFonts.tenorSans(
+                          textStyle: TextStyle(
+                            color: Colors.white,
+                            fontSize: 11.sp,
+                          ),
+                        ),
+                      ),
+                      IconButton(
+                        onPressed: incrementQuantity,
+                        icon: Icon(
+                          Icons.add_circle_outlined,
                           color: Colors.white,
                           size: 5.w,
                         ),

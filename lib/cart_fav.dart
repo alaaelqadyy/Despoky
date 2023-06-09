@@ -15,7 +15,7 @@ class CartScreen extends StatefulWidget {
 }
 
 class _CartScreenState extends State<CartScreen> {
-  late ServiceController _serviceController ;
+  late ServiceController _serviceController;
 
   List<AddToCartModel> cartItems = [];
   List<FavoriteProduct> favoriteItems = [];
@@ -42,7 +42,8 @@ class _CartScreenState extends State<CartScreen> {
 
   Future<void> fetchFavoriteItems() async {
     try {
-      List<FavoriteProduct> items =  await _serviceController.getFavorites();
+      List<FavoriteProduct> items =
+      await _serviceController.getFavorites();
       setState(() {
         favoriteItems = items;
       });
@@ -62,7 +63,6 @@ class _CartScreenState extends State<CartScreen> {
 
   @override
   Widget build(BuildContext context) {
-
     return Container(
       width: double.infinity,
       height: double.infinity,
@@ -130,13 +130,16 @@ class _CartScreenState extends State<CartScreen> {
                               ),
                               SizedBox(
                                 child: ListView(
-                                  physics: const NeverScrollableScrollPhysics(),
+                                  physics:
+                                  const NeverScrollableScrollPhysics(),
                                   shrinkWrap: true,
                                   children: cartItems
                                       .map(
                                         (item) => Padding(
-                                      padding: const EdgeInsets.all(3.0),
-                                      child: cartListItems(cartItem: item),
+                                      padding:
+                                      const EdgeInsets.all(3.0),
+                                      child: cartListItems(
+                                          cartItem: item),
                                     ),
                                   )
                                       .toList(),
@@ -198,19 +201,22 @@ class _CartScreenState extends State<CartScreen> {
                           Text('No favorites found.')
                         else
                           SizedBox(
-                          child: ListView(
-                            physics: const NeverScrollableScrollPhysics(),
-                            shrinkWrap: true,
-                            children: favoriteItems
-                                .map(
-                                  (item) => Padding(
-                                padding: const EdgeInsets.all(3.0),
-                                child: FavoriteListItem(favoriteItem: item),
-                              ),
-                            )
-                                .toList(),
+                            child: ListView(
+                              physics:
+                              const NeverScrollableScrollPhysics(),
+                              shrinkWrap: true,
+                              children: favoriteItems
+                                  .map(
+                                    (item) => Padding(
+                                  padding:
+                                  const EdgeInsets.all(3.0),
+                                  child: FavoriteListItem(
+                                      favoriteItem: item),
+                                ),
+                              )
+                                  .toList(),
+                            ),
                           ),
-                        ),
                       ],
                     ),
                   ),

@@ -24,7 +24,14 @@ class ProductDetails extends StatefulWidget {
 class _ProductDetailsState extends State<ProductDetails> {
   bool isFavorite = false;
 
-  late final ServiceController _productService;
+  late ServiceController _productService;
+
+  @override
+  void initState() {
+    super.initState();
+    _productService = ServiceController(context);
+  }
+
 
   Color parseColor(String colorValue) {
     try {
@@ -118,7 +125,9 @@ class _ProductDetailsState extends State<ProductDetails> {
                             setState(() {
                               isFavorite = !isFavorite;
                             });
-                            if (isFavorite) {
+                            if (!isFavorite) {
+
+                            } else {
                               await _productService.addToFavorites(
                                 FavoriteProduct(
                                   id: 'favoriteId',
@@ -127,15 +136,10 @@ class _ProductDetailsState extends State<ProductDetails> {
                                   title: widget.product.name,
                                   price: widget.product.price.toInt(),
                                   image: widget.product.image[0],
-                                  size: 'defaultSize',
+                                  size: 'default',
                                   quantity: 1,
                                 ),
                                 'userId',
-                              );
-                            } else {
-                              await _productService.removeFromFavorites(
-                                'userId',
-                                widget.product.id,
                               );
                             }
                           },
@@ -144,7 +148,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                             color: isFavorite ? Colors.red : Colors.white,
                             size: 3.h,
                           ),
-                        )
+                        ),
                       ],
                     ),
                     SizedBox(
