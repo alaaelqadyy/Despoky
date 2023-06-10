@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class ShippingAddress {
   final String id;
   final String fullName;
@@ -18,11 +20,29 @@ class ShippingAddress {
     required this.zipCode,
     this.isDefault = false,
   });
+
+  factory ShippingAddress.fromSnapshot(DocumentSnapshot doc) {
+    final data = doc.data() as Map<String, dynamic>;
+    return ShippingAddress(
+      id: doc.id,
+      fullName: data['fullName'],
+      country: data['country'],
+      address: data['address'],
+      city: data['city'],
+      state: data['state'],
+      zipCode: data['zipCode'],
+    );
+  }
+
+  Map<String, dynamic> toMap() {
+    return {
+      fullName: 'fullName',
+      country: 'country',
+      address: 'address',
+      city: 'city',
+      state: 'state',
+      zipCode:'zipCode',
+    };
+  }
 }
-
-List<ShippingAddress> shippingAddress = [
-  ShippingAddress(id: '3', fullName: 'Fatma Rida', country: 'egypt', address: '6street', city: 'cairo', state: 'helwan', zipCode: 'demo')
-
-
-];
 

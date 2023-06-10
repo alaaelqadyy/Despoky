@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import '../models/Product.dart';
 import '../models/add_to_cart.dart';
 import '../models/add_to_favorite.dart';
+import '../models/shipping_address.dart';
 import 'auth_controller.dart';
 
 class ServiceController {
@@ -182,6 +183,55 @@ class ServiceController {
       }
     } catch (error) {
       print('Error removing from cart: $error');
+      throw error;
+    }
+  }
+
+  Future<void> saveShippingAddress(String userId , ShippingAddress shippingAddress ) async {
+    try {
+      await _firestore.collection('users').doc(userId).collection('shipping').doc().set({
+        'fullName':shippingAddress.fullName,
+        'country': shippingAddress.country,
+        'address': shippingAddress.address,
+        'city': shippingAddress.city,
+        'state': shippingAddress.state,
+        'zipCode':shippingAddress.zipCode,
+        //'isDefault': shippingAddress.isDefault,
+      });
+    } catch (error) {
+      throw error;
+    }
+  }
+// Get user's shipping address
+  Future<ShippingAddress> getShippingAddress(String userId) async {
+    try {
+      final snapshot = await _firestore
+          .collection('users')
+          .doc(userId)
+          .collection('shipping')
+          .get();
+      if (snapshot.docs.isNotEmpty) {
+        final shippingData = snapshot.docs.first.data();
+        final ShippingAddress shippingAddress = ShippingAddress(
+          fullName: shippingData['fullName'],
+          country: shippingData['country'],
+          address: shippingData['address'],
+          city: shippingData['city'],
+          state: shippingData['state'],
+          zipCode: shippingData['zipCode'],
+          id: '',
+        );
+
+        return shippingAddress;
+      } else {
+        // No shipping address found for the user
+        return ShippingAddress(
+            id: '', fullName: '', country: '', address: '',
+            city: '', state: '', zipCode: ''
+        );
+      }
+    } catch (error) {
+      print('Error getting shipping address: $error');
       throw error;
     }
   }

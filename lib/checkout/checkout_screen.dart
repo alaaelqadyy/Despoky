@@ -8,16 +8,19 @@ import '../../shared/checkout/checkout_order_detailes.dart';
 import '../../shared/checkout/deleviry_method.dart';
 import '../../shared/checkout/payment_part.dart';
 import '../../shared/checkout/shipping_address_part.dart';
+import '../utilities/routes.dart';
 
 class CheckoutPage extends StatelessWidget {
-  const CheckoutPage({Key? key}) : super(key: key);
+  final ShippingAddress? shippingAddress;
+  final double subtotal; // Add the subtotal parameter
+
+  const CheckoutPage({Key? key, this.shippingAddress, required this.subtotal})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       appBar: AppBar(
-
         backgroundColor: Color(0xFF171725),
         elevation: 0,
         title: Text(
@@ -25,8 +28,8 @@ class CheckoutPage extends StatelessWidget {
           style: GoogleFonts.tenorSans(
             textStyle: TextStyle(
               color: Colors.white,
-                  fontWeight: FontWeight.bold
-            )
+              fontWeight: FontWeight.bold,
+            ),
           ),
         ),
         centerTitle: true,
@@ -36,8 +39,7 @@ class CheckoutPage extends StatelessWidget {
         height: double.infinity,
         color: Color(0xFF171725),
         child: Padding(
-          padding: const EdgeInsets.only(right: 16.0,left: 16, top: 20.0),
-
+          padding: const EdgeInsets.only(right: 16.0, left: 16, top: 20.0),
           child: SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -45,17 +47,16 @@ class CheckoutPage extends StatelessWidget {
                 Text(
                   'Shipping address',
                   style: GoogleFonts.tenorSans(
-                      textStyle: TextStyle(
-                        fontSize: 17.sp,
-                          color: Colors.white,
-                         // fontWeight: FontWeight.bold
-                      )
+                    textStyle: TextStyle(
+                      fontSize: 17.sp,
+                      color: Colors.white,
+                      // fontWeight: FontWeight.bold
+                    ),
                   ),
                 ),
-                 SizedBox(height: 3.h),
-
-                ShippingAddressComponent(shippingAddress: shippingAddress.first,),
-
+                SizedBox(height: 3.h),
+                if (shippingAddress != null)
+                  ShippingAddressComponent(shippingAddress: shippingAddress!),
                 SizedBox(height: 4.h),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -63,27 +64,25 @@ class CheckoutPage extends StatelessWidget {
                     Text(
                       'Payment',
                       style: GoogleFonts.tenorSans(
-                          textStyle: TextStyle(
-                              fontSize: 17.sp,
-                              color: Colors.white,
-                             // fontWeight: FontWeight.bold
-                          )
+                        textStyle: TextStyle(
+                          fontSize: 17.sp,
+                          color: Colors.white,
+                          // fontWeight: FontWeight.bold
+                        ),
                       ),
                     ),
                     Padding(
                       padding: const EdgeInsets.only(right: 16.0),
                       child: InkWell(
-                        onTap: () {
-
-                        },
+                        onTap: () {},
                         child: Text(
                           'Change',
                           style: GoogleFonts.tenorSans(
-                              textStyle: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 13.sp,
-                                  fontWeight: FontWeight.bold
-                              )
+                            textStyle: TextStyle(
+                              color: Colors.white,
+                              fontSize: 13.sp,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
                         ),
                       ),
@@ -96,22 +95,19 @@ class CheckoutPage extends StatelessWidget {
                 Text(
                   'Delivery method',
                   style: GoogleFonts.tenorSans(
-                      textStyle: TextStyle(
-                          fontSize: 17.sp,
-                          color: Colors.white,
-                          //fontWeight: FontWeight.bold
-                      )
+                    textStyle: TextStyle(
+                      fontSize: 17.sp,
+                      color: Colors.white,
+                      //fontWeight: FontWeight.bold
+                    ),
                   ),
                 ),
                 SizedBox(height: 3.h),
-
-
                 Padding(
-                  padding: const EdgeInsets.only(right: 16.0,left: 16),
+                  padding: const EdgeInsets.only(right: 16.0, left: 16),
                   child: SizedBox(
                     height: 11.h,
                     width: double.infinity,
-
                     child: ListView(
                       scrollDirection: Axis.horizontal,
                       children: deliveryMethod
@@ -125,43 +121,50 @@ class CheckoutPage extends StatelessWidget {
                     ),
                   ),
                 ),
-
-
                 SizedBox(height: 5.h),
-                CheckoutOrderDetails(),
-                SizedBox(height:5.h),
-
-
+                CheckoutOrderDetails(subtotal: subtotal), // Pass the subtotal
+                SizedBox(height: 5.h),
                 Container(
                   width: 100.w,
                   height: 8.h,
-                  child: TextButton(
-                    style: ButtonStyle(
-                      foregroundColor: MaterialStateProperty.all(Colors.white),
-                      backgroundColor:
-                      MaterialStateProperty.all<Color>(Colors.white),
-                      shape: MaterialStateProperty.all<
-                          RoundedRectangleBorder>(
-                          RoundedRectangleBorder(
-                              borderRadius:
-                              BorderRadius.circular(10),
-                          )),
-                    ),
+                  child: ElevatedButton(
                     onPressed: () {
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return AlertDialog(
+                            title: const Text('Thank You!\nFor choosing Bespoky'),
+                            content: const Text(
+                              ' Your order is being processed',
+                            ),
+                            icon: Icon(
+                              Icons.delivery_dining,
+                              color: Colors.black,
+                              size: (6.h),
+                            ),
+                            actions: [
+                              TextButton(
+                                onPressed: () {
+                                  {
+                                    Navigator.of(context, rootNavigator: true)
+                                        .pushNamed(
+                                      AppRoutes.bottomNavBarPageRoute,
+                                    );
+                                  }
+                                },
+                                child: Text('OK'),
+                              ),
+                            ],
+                          );
+                        },
+                      );
                     },
                     child: Text(
-                      'SUBMIT ORDER',
-                      style: GoogleFonts.tenorSans(
-                        textStyle: TextStyle(
-                            color: Color(0xFF171725),
-                            fontSize: 15.sp,
-                            fontWeight: FontWeight.bold
-                        ),
-                      ),
+                      'Place Order',
+                      style: TextStyle(fontSize: 15.sp),
                     ),
                   ),
                 ),
-
               ],
             ),
           ),

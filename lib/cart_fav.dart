@@ -1,3 +1,4 @@
+import 'package:Despoky/shared/checkout/checkout_order_detailes.dart';
 import 'package:Despoky/shared/favorite_list_item.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -19,6 +20,7 @@ class _CartScreenState extends State<CartScreen> {
 
   List<AddToCartModel> cartItems = [];
   List<FavoriteProduct> favoriteItems = [];
+  double subtotal = 0.0; // Add the subtotal variable
 
   @override
   void initState() {
@@ -33,6 +35,7 @@ class _CartScreenState extends State<CartScreen> {
       List<AddToCartModel> items = await _serviceController.getCart();
       setState(() {
         cartItems = items;
+        subtotal = calculateSubtotal(); // Calculate subtotal
       });
     } catch (error) {
       // Handle error
@@ -160,7 +163,7 @@ class _CartScreenState extends State<CartScreen> {
                                   Row(
                                     children: [
                                       Text(
-                                        'SUB TOTAL : \$${calculateSubtotal().toStringAsFixed(2)}',
+                                        'SUB TOTAL : \$${subtotal.toStringAsFixed(2)}',
                                         style: GoogleFonts.tenorSans(
                                           color: Colors.white,
                                           fontSize: 12.sp,
@@ -172,7 +175,9 @@ class _CartScreenState extends State<CartScreen> {
                                     onPressed: () {
                                       Navigator.of(context, rootNavigator: true)
                                           .pushNamed(
-                                          AppRoutes.checkoutPageRoute);
+                                        AppRoutes.checkoutPageRoute,
+                                        arguments: subtotal, // Pass subtotal value as arguments
+                                      );
                                     },
                                     child: Text(
                                       'CHECKOUT',

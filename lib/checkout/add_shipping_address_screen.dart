@@ -1,3 +1,5 @@
+import 'package:Despoky/controllers/service_controller.dart';
+import 'package:Despoky/models/shipping_address.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -30,7 +32,13 @@ class _AddShippingAddressPageState extends State<AddShippingAddressPage> {
   final _zipCodeFocusNode = FocusNode();
   final _countryFocusNode = FocusNode();
 
+  late ServiceController _serviceController;
 
+  @override
+  void initState() {
+    super.initState();
+    _serviceController = ServiceController(context);
+  }
   @override
   void dispose() {
     _fullNameController.dispose();
@@ -247,8 +255,24 @@ class _AddShippingAddressPageState extends State<AddShippingAddressPage> {
                         ),
                         onPressed: () {
                           if (_formKey.currentState!.validate()) {
-                            Navigator.of(context)
-                                .pushNamed(AppRoutes.checkoutPageRoute);
+                            String fullName = _fullNameController.text;
+                            String address = _addressController.text;
+                            String city = _cityController.text;
+                            String state = _stateController.text;
+                            String zipCode = _zipCodeController.text;
+                            String country = _countryController.text;
+
+                            ShippingAddress shippingAddress = ShippingAddress(
+                              fullName: fullName,
+                              address: address,
+                              city: city,
+                              state: state,
+                              zipCode: zipCode,
+                              country: country,
+                              id: '',
+                            );
+                            _serviceController.saveShippingAddress('userId', shippingAddress);
+                            Navigator.of(context).pushNamed(AppRoutes.checkoutPageRoute);
                           }
                         },
                         child: Text(

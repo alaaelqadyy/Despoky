@@ -72,6 +72,10 @@ class _cartListItemsState extends State<cartListItems> {
     }
   }
 
+  int getTotalPrice() {
+    return widget.cartItem.price * quantity;
+  }
+
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -82,15 +86,14 @@ class _cartListItemsState extends State<cartListItems> {
         child: Row(
           children: [
             Container(
-            color: Colors.white,
-            child: Image.asset(
-              widget.cartItem.image,
-              width: 25.w,
-              height: 30.w,
-              fit: BoxFit.fitWidth,
+              color: Colors.white,
+              child: Image.asset(
+                widget.cartItem.image,
+                width: 25.w,
+                height: 30.w,
+                fit: BoxFit.fitWidth,
+              ),
             ),
-          ),
-
             Expanded(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
@@ -190,6 +193,15 @@ class _cartListItemsState extends State<cartListItems> {
                         ),
                       ),
                     ],
+                  ),
+                  Text(
+                    "Total Price: ${getTotalPrice()} \$",
+                    style: GoogleFonts.tenorSans(
+                      textStyle: TextStyle(
+                        color: Colors.white,
+                        fontSize: 12.sp,
+                      ),
+                    ),
                   ),
                 ],
               ),
