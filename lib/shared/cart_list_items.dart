@@ -90,7 +90,7 @@ class _cartListItemsState extends State<cartListItems> {
               child: Image.asset(
                 widget.cartItem.image,
                 width: 25.w,
-                height: 30.w,
+                height: 35.w,
                 fit: BoxFit.fitWidth,
               ),
             ),
@@ -99,6 +99,7 @@ class _cartListItemsState extends State<cartListItems> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  SizedBox(height: 1.h,),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -127,17 +128,7 @@ class _cartListItemsState extends State<cartListItems> {
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                          '${widget.cartItem.description}',
-                          style: GoogleFonts.tenorSans(
-                            textStyle: TextStyle(
-                              color: Colors.grey,
-                              fontSize: 12.sp,
-                            ),
-                          ),
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                        ),
+
                         SizedBox(
                           height: 1.h,
                         ),
@@ -194,15 +185,7 @@ class _cartListItemsState extends State<cartListItems> {
                       ),
                     ],
                   ),
-                  Text(
-                    "Total Price: ${getTotalPrice()} \$",
-                    style: GoogleFonts.tenorSans(
-                      textStyle: TextStyle(
-                        color: Colors.white,
-                        fontSize: 12.sp,
-                      ),
-                    ),
-                  ),
+
                 ],
               ),
             ),

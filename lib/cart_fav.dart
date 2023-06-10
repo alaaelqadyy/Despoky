@@ -201,9 +201,23 @@ class _CartScreenState extends State<CartScreen> {
                   ),
                   SingleChildScrollView(
                     child: Column(
+
                       children: [
                         if (favoriteItems.isEmpty)
-                          Text('No favorites found.')
+                          Container(
+                            width: 100.w,
+                            height: 100.h,
+                            child: Center(
+                              child: Text('No favorites found.',
+                                style: GoogleFonts.tenorSans(
+                                textStyle: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 15.sp
+                                )
+                              ),
+                              ),
+                            ),
+                          )
                         else
                           SizedBox(
                             child: ListView(

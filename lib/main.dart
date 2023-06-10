@@ -27,7 +27,7 @@ class MyApp extends StatelessWidget {
             debugShowCheckedModeBanner: false,
 
             onGenerateRoute: onGenerateRoute,
-            initialRoute: AppRoutes.bottomNavBarPageRoute,
+            initialRoute: AppRoutes.loginPageRoute,
           );
         }
     );
