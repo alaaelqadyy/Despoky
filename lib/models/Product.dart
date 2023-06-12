@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Product {
-  final String id;
+  final String docId; // Add the document ID field
   final String name;
   final String description;
   final double price;
@@ -11,7 +11,7 @@ class Product {
   final int quantity;
 
   Product({
-    required this.id,
+    required this.docId,
     required this.name,
     required this.description,
     required this.price,
@@ -27,7 +27,7 @@ class Product {
     final color = List<String>.from(data['colors'] ?? []);
     final size = List<String>.from(data['sizes'] ?? []);
     return Product(
-      id: data['id'] ?? '',
+      docId: snapshot.id, // Set the document ID field
       name: data['name'] ?? '',
       description: data['description'] ?? '',
       price: (data['price'] ?? 0.0).toDouble(),

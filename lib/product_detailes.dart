@@ -131,7 +131,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                               await _productService.addToFavorites(
                                 FavoriteProduct(
                                   id: 'favoriteId',
-                                  productId: widget.product.id,
+                                  productId: widget.product.docId,
                                   description: widget.product.description,
                                   title: widget.product.name,
                                   price: widget.product.price.toInt(),
@@ -216,7 +216,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                     _productService.addToCart(
                       AddToCartModel(
                         id: 'productId',
-                        productId: widget.product.id,
+                        productId: widget.product.docId,
                         description: widget.product.description,
                         title: widget.product.name,
                         price: widget.product.price.toInt(),

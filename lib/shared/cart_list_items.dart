@@ -45,31 +45,9 @@ class _cartListItemsState extends State<cartListItems> {
   }
 
   Future<void> removeFromCart() async {
-    try {
-      await _productService.removeFromCart(
-          _productService.authController.getCurrentUser()!.uid,
-          widget.cartItem.id);
-      setState(() {
-        cartItems.remove(widget.cartItem);
-      });
-
-    } catch (error) {
-      showDialog(
-        context: context,
-        builder: (context) => AlertDialog(
-          title: Text('Error'),
-          content: Text(error.toString()),
-          actions: <Widget>[
-            TextButton(
-              child: Text('OK'),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-          ],
-        ),
-      );
-    }
+    await _productService.removeFromCart(
+        _productService.authController.getCurrentUser()!.uid,
+        widget.cartItem.id);
   }
 
   int getTotalPrice() {

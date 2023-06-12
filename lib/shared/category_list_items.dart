@@ -1,9 +1,9 @@
-import 'package:Despoky/models/add_to_cart.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sizer/sizer.dart';
 
 import '../controllers/service_controller.dart';
+import '../models/add_to_cart.dart';
 import '../models/add_to_favorite.dart';
 import '../utilities/routes.dart';
 import '../models/Product.dart';
@@ -18,16 +18,57 @@ class CategoryListItems extends StatefulWidget {
 }
 
 class _CategoryListItemsState extends State<CategoryListItems> {
-  bool isFavorite = false;
-  bool isAddedToCart = false;
+   bool isFavorite = false;
+   bool isAddedToCart = false;
   late ServiceController _productService;
 
   @override
   void initState() {
     super.initState();
     _productService = ServiceController(context);
+    checkIfFavoriteExists();
+    checkIfProductInCart();
   }
 
+  void checkIfFavoriteExists() async {
+    bool existsInFavorites = await _productService.isExistInFavorites(
+      FavoriteProduct(
+        id: 'favoriteId',
+        productId: widget.product.docId,
+        description: widget.product.description,
+        title: widget.product.name,
+        price: widget.product.price.toInt(),
+        image: widget.product.image[0],
+        size: 'default',
+        quantity: 1,
+      ),
+      'userId',
+    );
+
+    setState(() {
+      isFavorite = existsInFavorites;
+    });
+  }
+
+  void checkIfProductInCart() async {
+    bool existsInCart = await _productService.isExistOnCart(
+      AddToCartModel(
+        id: 'productId',
+        productId: widget.product.docId,
+        description: widget.product.description,
+        title: widget.product.name,
+        price: widget.product.price.toInt(),
+        image: widget.product.image[0],
+        size: 'default',
+        quantity: 1,
+      ),
+      'userId',
+    );
+
+    setState(() {
+      isAddedToCart = existsInCart;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -77,7 +118,7 @@ class _CategoryListItemsState extends State<CategoryListItems> {
                               // Remove from cart
                               _productService.removeFromCart(
                                 'userId',
-                                widget.product.id,
+                                widget.product.docId,
                               );
                               setState(() {
                                 isAddedToCart = false;
@@ -87,7 +128,7 @@ class _CategoryListItemsState extends State<CategoryListItems> {
                               _productService.addToCart(
                                 AddToCartModel(
                                   id: 'productId',
-                                  productId: widget.product.id,
+                                  productId: widget.product.docId,
                                   description: widget.product.description,
                                   title: widget.product.name,
                                   price: widget.product.price.toInt(),
@@ -107,7 +148,7 @@ class _CategoryListItemsState extends State<CategoryListItems> {
                             style: GoogleFonts.tenorSans(
                               textStyle: TextStyle(
                                 color: Colors.white,
-                                fontSize: 12.sp,
+                                fontSize: 10.sp,
                               ),
                             ),
                           ),
@@ -121,7 +162,7 @@ class _CategoryListItemsState extends State<CategoryListItems> {
                               await _productService.addToFavorites(
                                 FavoriteProduct(
                                   id: 'favoriteId',
-                                  productId: widget.product.id,
+                                  productId: widget.product.docId,
                                   description: widget.product.description,
                                   title: widget.product.name,
                                   price: widget.product.price.toInt(),
@@ -132,10 +173,9 @@ class _CategoryListItemsState extends State<CategoryListItems> {
                                 'userId',
                               );
                             } else {
-                              await _productService.removeFromFavorites(
-                                'userId',
-                                widget.product.id,
-                              );
+                              await _productService.removeFromCart(
+                                  _productService.authController.getCurrentUser()!.uid,
+                                  widget.product.docId);
                             }
                           },
                           icon: Icon(
