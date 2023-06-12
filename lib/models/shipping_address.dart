@@ -46,3 +46,9 @@ class ShippingAddress {
   }
 }
 
+
+List<ShippingAddress> shippingAddress = [
+  ShippingAddress(id: '3', fullName: 'Alaa Elqady', country: 'egypt', address: '6street', city: 'cairo', state: 'helwan', zipCode: 'demo')
+
+
+];

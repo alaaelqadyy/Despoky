@@ -175,7 +175,7 @@ class _CartScreenState extends State<CartScreen> {
                                     onPressed: () {
                                       Navigator.of(context, rootNavigator: true)
                                           .pushNamed(
-                                        AppRoutes.checkoutPageRoute,
+                                        AppRoutes.addAddressPageRoute,
                                         arguments: subtotal, // Pass subtotal value as arguments
                                       );
                                     },

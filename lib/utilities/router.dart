@@ -30,9 +30,8 @@ Route<dynamic> onGenerateRoute(RouteSettings settings) {
 
     case AppRoutes.checkoutPageRoute:
       return CupertinoPageRoute(
-        builder: (_) {
-          final subtotal = settings.arguments as double;
-          return CheckoutPage(subtotal: subtotal);
+        builder: (_) {;
+          return CheckoutPage();
         },
         settings: settings,
       );

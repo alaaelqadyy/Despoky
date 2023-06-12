@@ -11,25 +11,26 @@ import '../../shared/checkout/shipping_address_part.dart';
 import '../utilities/routes.dart';
 
 class CheckoutPage extends StatelessWidget {
-  final ShippingAddress? shippingAddress;
-  final double subtotal; // Add the subtotal parameter
+  // Add the subtotal parameter
 
-  const CheckoutPage({Key? key, this.shippingAddress, required this.subtotal})
+  const CheckoutPage({Key? key,})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       appBar: AppBar(
+
         backgroundColor: Color(0xFF171725),
         elevation: 0,
         title: Text(
           'Checkout',
           style: GoogleFonts.tenorSans(
-            textStyle: TextStyle(
-              color: Colors.white,
-              fontWeight: FontWeight.bold,
-            ),
+              textStyle: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold
+              )
           ),
         ),
         centerTitle: true,
@@ -39,7 +40,8 @@ class CheckoutPage extends StatelessWidget {
         height: double.infinity,
         color: Color(0xFF171725),
         child: Padding(
-          padding: const EdgeInsets.only(right: 16.0, left: 16, top: 20.0),
+          padding: const EdgeInsets.only(right: 16.0,left: 16, top: 20.0),
+
           child: SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -47,16 +49,16 @@ class CheckoutPage extends StatelessWidget {
                 Text(
                   'Shipping address',
                   style: GoogleFonts.tenorSans(
-                    textStyle: TextStyle(
-                      fontSize: 17.sp,
-                      color: Colors.white,
-                      // fontWeight: FontWeight.bold
-                    ),
+                      textStyle: TextStyle(
+                        fontSize: 17.sp,
+                        color: Colors.white,
+                      )
                   ),
                 ),
                 SizedBox(height: 3.h),
-                if (shippingAddress != null)
-                  ShippingAddressComponent(shippingAddress: shippingAddress!),
+
+                ShippingAddressComponent(shippingAddress: shippingAddress.first,),
+
                 SizedBox(height: 4.h),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -64,25 +66,27 @@ class CheckoutPage extends StatelessWidget {
                     Text(
                       'Payment',
                       style: GoogleFonts.tenorSans(
-                        textStyle: TextStyle(
-                          fontSize: 17.sp,
-                          color: Colors.white,
-                          // fontWeight: FontWeight.bold
-                        ),
+                          textStyle: TextStyle(
+                            fontSize: 17.sp,
+                            color: Colors.white,
+                            // fontWeight: FontWeight.bold
+                          )
                       ),
                     ),
                     Padding(
                       padding: const EdgeInsets.only(right: 16.0),
                       child: InkWell(
-                        onTap: () {},
+                        onTap: () {
+
+                        },
                         child: Text(
                           'Change',
                           style: GoogleFonts.tenorSans(
-                            textStyle: TextStyle(
-                              color: Colors.white,
-                              fontSize: 13.sp,
-                              fontWeight: FontWeight.bold,
-                            ),
+                              textStyle: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 13.sp,
+                                  fontWeight: FontWeight.bold
+                              )
                           ),
                         ),
                       ),
@@ -95,19 +99,22 @@ class CheckoutPage extends StatelessWidget {
                 Text(
                   'Delivery method',
                   style: GoogleFonts.tenorSans(
-                    textStyle: TextStyle(
-                      fontSize: 17.sp,
-                      color: Colors.white,
-                      //fontWeight: FontWeight.bold
-                    ),
+                      textStyle: TextStyle(
+                        fontSize: 17.sp,
+                        color: Colors.white,
+                        //fontWeight: FontWeight.bold
+                      )
                   ),
                 ),
                 SizedBox(height: 3.h),
+
+
                 Padding(
-                  padding: const EdgeInsets.only(right: 16.0, left: 16),
+                  padding: const EdgeInsets.only(right: 16.0,left: 16),
                   child: SizedBox(
                     height: 11.h,
                     width: double.infinity,
+
                     child: ListView(
                       scrollDirection: Axis.horizontal,
                       children: deliveryMethod
@@ -121,13 +128,28 @@ class CheckoutPage extends StatelessWidget {
                     ),
                   ),
                 ),
+
+
                 SizedBox(height: 5.h),
-                CheckoutOrderDetails(subtotal: subtotal), // Pass the subtotal
-                SizedBox(height: 5.h),
+                CheckoutOrderDetails(),
+                SizedBox(height:5.h),
+
+
                 Container(
                   width: 100.w,
                   height: 8.h,
-                  child: ElevatedButton(
+                  child: TextButton(
+                    style: ButtonStyle(
+                      foregroundColor: MaterialStateProperty.all(Colors.white),
+                      backgroundColor:
+                      MaterialStateProperty.all<Color>(Colors.white),
+                      shape: MaterialStateProperty.all<
+                          RoundedRectangleBorder>(
+                          RoundedRectangleBorder(
+                            borderRadius:
+                            BorderRadius.circular(10),
+                          )),
+                    ),
                     onPressed: () {
                       showDialog(
                         context: context,
@@ -160,11 +182,18 @@ class CheckoutPage extends StatelessWidget {
                       );
                     },
                     child: Text(
-                      'Place Order',
-                      style: TextStyle(fontSize: 15.sp),
+                      'SUBMIT ORDER',
+                      style: GoogleFonts.tenorSans(
+                        textStyle: TextStyle(
+                            color: Color(0xFF171725),
+                            fontSize: 15.sp,
+                            fontWeight: FontWeight.bold
+                        ),
+                      ),
                     ),
                   ),
                 ),
+
               ],
             ),
           ),
